@@ -1,0 +1,12 @@
+---
+
+# This file tells https://pre-commit.com/
+# which hooks are provided by this repo
+# for use by other git repos.
+
+- id: check-mailmap
+  name: Detect if an email address needs to be added to mailmap
+  entry: check-mailmap
+  language: python
+  always_run: true  # Run on every commit.
+  exclude: .*       # Otherwise runs once per file.
