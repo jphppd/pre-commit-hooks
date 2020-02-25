@@ -4,9 +4,93 @@
 # which hooks are provided by this repo
 # for use by other git repos.
 
+#########
+#########
+## Git ##
+#########
+#########
+
 - id: check-mailmap
   name: Detect if an email address needs to be added to mailmap
   entry: check-mailmap
   language: python
   always_run: true  # Run on every commit.
   exclude: .*       # Otherwise runs once per file.
+
+- id: forbid-binary
+  name: Forbid binaries
+  description: Forbid binary files from being committed
+  entry: pre_commit_hooks/forbid-binary
+  language: script
+  types: ['binary']
+
+- id: git-check
+  name: Check for conflict markers and core.whitespace errors
+  # yamllint disable-line rule:line-length
+  description: Use git to check for conflict markers and core.whitespace errors, respecting .gitattributes
+  entry: pre_commit_hooks/git-check
+  language: script
+
+- id: git-dirty
+  name: Check if the git tree is dirty
+  description: Detect if git tree contains modified, staged, or untracked files
+  entry: pre_commit_hooks/git-dirty
+  language: script
+
+#############
+#############
+## Generic ##
+#############
+#############
+
+##############
+##############
+## Markdown ##
+##############
+##############
+
+- id: markdownlint
+  name: Check markdown files
+  description: Check markdown files and flag style issues
+  entry: pre_commit_hooks_ruby/run-mdl
+  language: ruby
+  types: ['markdown']
+
+
+###########
+###########
+## Shell ##
+###########
+###########
+
+
+- id: shellcheck
+  name: Test shell scripts with shellcheck
+  description: Shell scripts conform to shellcheck
+  entry: pre_commit_hooks/shellcheck
+  language: script
+  types: [shell]
+  args: [-e, SC1091]
+  additional_dependencies: [shellcheck]
+
+- id: script-must-have-extension
+  name: Non-executable shell script filename ends in .sh
+  description: Non-executable shell script filename ends in .sh
+  entry: pre_commit_hooks/script_must_have_extension
+  language: script
+  types: [shell, non-executable]
+
+- id: script-must-not-have-extension
+  name: Executable shell script omits the filename extension
+  description: Executable shell script omits the filename extension
+  entry: pre_commit_hooks/script_must_not_have_extension
+  language: script
+  types: [shell, executable]
+
+- id: shfmt
+  name: Check shell style with shfmt
+  language: script
+  entry: pre_commit_hooks/shfmt
+  types: [shell]
+  args: ['-l', '-i', '2', '-ci']
+  additional_dependencies: [shfmt]

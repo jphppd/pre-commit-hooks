@@ -11,6 +11,11 @@ Git hooks to integrate with [pre-commit](http://pre-commit.com).
   * [`forbid-binary`](#forbid-binary)
   * [`git-check`](#git-check)
   * [`git-dirty`](#git-dirty)
+  * [`markdownlint`](#markdownlint)
+  * [`script-must-have-extension`](#script-must-have-extension)
+  * [`script-must-not-have-extension`](#script-must-not-have-extension)
+  * [`shellcheck`](#shellcheck)
+  * [`shfmt`](#shfmt)
 
 ## Configure pre-commit
 
@@ -23,6 +28,11 @@ Add to `.pre-commit-config.yaml` in your git repo:
         - id: forbid-binary
         - id: git-check  # Configure in .gitattributes
         - id: git-dirty  # Configure in .gitignore
+        - id: markdownlint # Configure in .mdlrc
+        - id: script-must-have-extension
+        - id: script-must-not-have-extension
+        - id: shellcheck
+        - id: shfmt
 
 ## Two ways to invoke pre-commit
 
@@ -140,3 +150,131 @@ see if a build step has modified the git tree in unexpected ways.
 
 The recommended place to persist the configuration is the `.gitignore` file,
 described [**here**](https://git-scm.com/docs/gitignore).
+
+### `markdownlint`
+
+**What it does**
+
+Check markdown files and flag style issues.
+
+**More info**
+
+[markdownlint](https://github.com/markdownlint/markdownlint)
+is a ruby tool that examines markdown files against various
+[style rules](https://github.com/markdownlint/markdownlint/blob/master/docs/RULES.md).
+
+**Custom configuration (overrides)**
+
+Provide `.mdlrc` in the top-level of your project git repo.
+
+For an annotated example of overrides, see in this project:
+
+* [`.mdlrc`](.mdlrc)
+* [`ci/jumanjistyle.rb`](ci/jumanjistyle.rb)
+
+### `script-must-have-extension`
+
+**What it does**
+
+The [Google shell style guide](https://google.github.io/styleguide/shell.xml#File_Extensions)
+states:
+
+> Libraries must have a `.sh` extension and should not be executable.
+
+This hook checks for conformance.
+
+**Default**
+
+Filter on files that are both `shell` **and** `non-executable`.
+
+    types: [shell, non-executable]
+
+**Custom configuration (overrides)**
+
+Suppose your local style guide is the opposite of the default.<br/>
+In other words, you require **executable** scripts to end with `.sh`.<br/>
+Put this in your `.pre-commit-config.yaml`:
+
+    - repo: https://github.com/jumanjihouse/pre-commit-hooks
+      rev: <version>
+      hooks:
+        - id: script-must-have-extension
+          name: Local policy is to use .sh extension for shell scripts
+          types: [shell, executable]
+
+Note the use of "name" to override the hook's default name and
+provide context for the override.
+
+
+### `script-must-not-have-extension`
+
+**What it does**
+
+The [Google shell style guide](https://google.github.io/styleguide/shell.xml#File_Extensions)
+states:
+
+> Executables should have no extension (strongly preferred)
+
+This hook checks for conformance.
+
+**Default**
+
+Filter on files that are both `shell` **and** `executable`.
+
+    types: [shell, executable]
+
+**Custom configuration (overrides)**
+
+You can use this hook to forbid filename extensions on other types of files.<br/>
+Put something like this in your `.pre-commit-config.yaml`:
+
+    - repo: https://github.com/jumanjihouse/pre-commit-hooks
+      rev: <version>
+      hooks:
+        - id: script-must-not-have-extension
+          name: Local policy is to exclude extension from all shell files
+          types: [shell]
+
+        - id: script-must-not-have-extension
+          name: Executable Ruby scripts must not have a file extension
+          types: [ruby, executable]
+
+Note the use of "name" to override the hook's default name and
+provide context for the override.
+
+
+### `shellcheck`
+
+**What it does**
+
+Run shellcheck against scripts.
+
+**More info**
+
+This hook uses the `identify` library of pre-commit to identify shell scripts.
+If the file is a shell script, then run shellcheck against the file.
+
+By default, this hooks passes `-e SC1091` to shellcheck.
+Override locally with the `args` parameter in `.pre-commit-config.yaml`.
+
+:warning: The `shellcheck` hook requires
+[shellcheck](https://github.com/koalaman/shellcheck).
+
+
+### `shfmt`
+
+**What it does**
+
+Run `shfmt` against scripts with args.
+
+**More info**
+
+This hook uses the `identify` library of pre-commit to identify shell scripts.
+If the file is a shell script, then run shfmt against the file.
+
+By default, this hooks passes `-l -i 2 -ci` to shfmt to conform to the
+[Google Shell Style Guide](https://google.github.io/styleguide/shell.xml).
+Override locally with the `args` parameter in `.pre-commit-config.yaml`.
+
+:warning: The `shfmt` hook requires
+[shfmt](https://github.com/mvdan/sh/releases).

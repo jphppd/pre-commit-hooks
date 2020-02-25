@@ -15,8 +15,8 @@ The above example can be fixed by adding these two lines to .mailmap file:
 See git-shortlog(1) for more details.
 """
 from collections import defaultdict
-from subprocess import check_output, PIPE
-
+from subprocess import check_output
+import sys
 
 def get_git_mail_map():
     """Construct mail mapping, as dict {email: [names]}."""
@@ -49,4 +49,4 @@ def main():
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())
