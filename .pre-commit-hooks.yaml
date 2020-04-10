@@ -319,6 +319,34 @@
   args:
     - '--style={ColumnLimit: 99}'
 
+################
+################
+## Javascript ##
+################
+################
+
+- id: js-eslint
+  name: eslint
+  description: >
+    Run eslint
+  language: node
+  types:
+    - javascript
+  entry: eslint
+  additional_dependencies:
+    - "eslint"
+
+- id: js-prettier
+  name: prettier
+  description: >
+    Run prettier
+  language: node
+  types:
+    - javascript
+  entry: prettier
+  additional_dependencies:
+    - "prettier"
+
 ###########
 ###########
 ## Jinja ##
