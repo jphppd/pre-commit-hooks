@@ -298,6 +298,8 @@
   # https://github.com/ansible/ansible-lint/issues/611
   pass_filenames: false
   always_run: true
+  additional_dependencies:
+    - ansible-lint
   entry: ansible-lint --force-color .
 
 ###########
@@ -362,6 +364,8 @@
   language: python
   types:
     - jinja
+  additional_dependencies:
+    - jinjalint
   entry: jinjalint
 
 ##########
@@ -587,6 +591,8 @@
   language: python
   types:
     - python
+  additional_dependencies:
+    - pyupgrade
   entry: pyupgrade
 
 - id: python-yapf
@@ -597,6 +603,8 @@
   language: python
   types:
     - python
+  additional_dependencies:
+    - yapf
   entry: yapf
   args:
     - --in-place
@@ -610,6 +618,8 @@
   language: python
   types:
     - python
+  additional_dependencies:
+    - pylint
   entry: pylint
   args:
     - --max-line-length=99
@@ -628,6 +638,8 @@
   language: python
   types:
     - python
+  additional_dependencies:
+    - pydocstyle
   entry: pydocstyle
 
 ##########
@@ -786,8 +798,20 @@
   args:
     - -l
     - -i
-    - '2'
+    - '4'
     - -ci
+
+- id: shell-bashate
+  name: bashate
+  description: >
+    This hook runs bashate for linting shell scripts
+    Origin: https://github.com/openstack/bashate
+  language: python
+  types:
+    - shell
+  additional_dependencies:
+    - bashate
+  entry: bashate
 
 ##########
 ##########
@@ -835,6 +859,8 @@
   language: python
   types:
     - yaml
+  additional_dependencies:
+    - ruamel.yaml
   entry: yaml-check-syntax
 
 - id: yaml-yamllint
@@ -845,4 +871,6 @@
   language: python
   types:
     - yaml
+  additional_dependencies:
+    - yamllint
   entry: yamllint
