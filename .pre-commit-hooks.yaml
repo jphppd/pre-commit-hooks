@@ -61,7 +61,7 @@
   name: Forbid binaries
   description: >
     Forbid binary files from being committed
-    Curtosy of https://github.com/jumanjihouse/pre-commit-hooks#forbid-binary
+    Courtesy of https://github.com/jumanjihouse/pre-commit-hooks#forbid-binary
   language: fail
   types:
     - binary
@@ -72,7 +72,7 @@
   description: >
     Use git to check for conflict markers and core.whitespace errors,
     respecting .gitattributes
-    Curtosy of https://github.com/jumanjihouse/pre-commit-hooks#git-check
+    Courtesy of https://github.com/jumanjihouse/pre-commit-hooks#git-check
   language: script
   entry: pre_commit_hooks_shell/git-check
 
@@ -88,9 +88,9 @@
   name: Check for added large files
   description: >
     Prevent giant files from being committed
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-added-large-files
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-added-large-files
   language: python
-  entry: check-added-large-files
+  entry: git-check-added-large-files
   args:
     - --maxkb=500
 
@@ -98,7 +98,7 @@
   name: Check for merge conflicts
   description: >
     Check for files that contain merge conflict strings.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-merge-conflict
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-merge-conflict
   language: python
   types:
     - text
@@ -114,17 +114,17 @@
   name: Check for byte-order marker
   description: >
     Forbid files which have a UTF-8 byte-order marker
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-byte-order-marker
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-byte-order-marker
   language: python
   types:
     - text
-  entry: check-byte-order-marker
+  entry: generic-check-byte-order-marker
 
 - id: generic-check-case-conflict
   name: Check for case conflicts
   description: >
     Check for files that would conflict in case-insensitive filesystems
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-case-conflict
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-case-conflict
   language: python
   types:
     - python
@@ -134,62 +134,62 @@
   name: Check that executables have shebangs
   description: >
     Ensures that (non-binary) executables have a shebang.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-executables-have-shebangs
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-executables-have-shebangs
   language: python
   types:
     - text
     - executable
-  entry: check-executables-have-shebangs
+  entry: generic-check-executables-have-shebangs
 
 - id: generic-check-symlinks
   name: Check for broken symlinks
   description: >
     Checks for symlinks which do not point to anything.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-symlinks
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-symlinks
   language: python
   types:
     - symlink
-  entry: check-symlinks
+  entry: generic-check-symlinks
 
 - id: generic-check-vcs-permalinks
   name: Check vcs permalinks
   description: >
     Ensures that links to vcs websites are permalinks.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-vcs-permalinks
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-vcs-permalinks
   language: python
   types:
     - text
-  entry: check-vcs-permalinks
+  entry: generic-check-vcs-permalinks
 
 - id: generic-detect-private-key
   name: Detect Private Key
   description: >
     Detects the presence of private keys
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#detect-private-key
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#detect-private-key
   language: python
   types:
     - text
-  entry: detect-private-key
+  entry: generic-detect-private-key
 
 - id: generic-end-of-file-fixer
   name: Fix End of Files
   description: >
     Ensures that a file is either empty, or ends with one newline.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#end-of-file-fixer
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#end-of-file-fixer
   language: python
   types:
     - text
-  entry: end-of-file-fixer
+  entry: generic-end-of-file-fixer
 
 - id: generic-trailing-whitespace
   name: Trim Trailing Whitespace
   description: >
     This hook trims trailing whitespace.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#trailing-whitespace
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#trailing-whitespace
   language: python
   types:
     - text
-  entry: trailing-whitespace-fixer
+  entry: generic-trailing-whitespace-fixer
 
 ##########
 ##########
@@ -202,22 +202,22 @@
   name: Check JSON
   description: >
     This hook checks json files for parseable syntax.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-json
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-json
   language: python
   types:
     - json
-  entry: check-json
+  entry: json-check-syntax
 
 
 - id: json-pretty-format
   name: Pretty format JSON
   description: >
     This hook sets a standard for formatting JSON files.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#pretty-format-json
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#pretty-format-json
   language: python
   types:
     - json
-  entry: pretty-format-json
+  entry: json-pretty-format
   args:
     - --autofix
     - --indent=2
@@ -233,7 +233,7 @@
   name: Check markdown files
   description: >
     Check markdown files and flag style issues
-    Curtosy of https://github.com/jumanjihouse/pre-commit-hooks#markdownlint
+    Courtesy of https://github.com/jumanjihouse/pre-commit-hooks#markdownlint
   language: ruby
   types:
     - markdown
@@ -252,61 +252,61 @@
   name: Check python ast
   description: >
     Simply check whether files parse as valid python.
-    Curtosy of https://github.com/jumanjihouse/pre-commit-hooks#markdownlint
+    Courtesy of https://github.com/jumanjihouse/pre-commit-hooks#markdownlint
   language: python
   types:
     - python
-  entry: check-ast
+  entry: python-check-ast
 
 - id: python-check-builtin-literals
   name: Check builtin type constructor use
   description: >
     Require literal syntax when initializing empty or zero Python builtin types.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-builtin-literals
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-builtin-literals
   language: python
   types:
     - python
-  entry: check-builtin-literals
+  entry: python-check-builtin-literals
 
 - id: python-check-docstring-first
   name: Check docstring is first
   description: >
     Checks a common error of defining a docstring after code.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-docstring-first
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-docstring-first
   language: python
   types:
     - python
-  entry: check-docstring-first
+  entry: python-check-docstring-first
 
 - id: python-debug-statements
   name: Debug Statements (Python)
   description: >
     Check for debugger imports and py37+ `breakpoint()` calls in python source.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#debug-statements
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#debug-statements
   language: python
   types:
     - python
-  entry: debug-statement-hook
+  entry: python-debug-statement-hook
 
 - id: python-double-quote-string-fixer
   name: Fix double quoted strings
   description: >
     This hook replaces double quoted strings with single quoted strings
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#double-quote-string-fixer
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#double-quote-string-fixer
   language: python
   types:
     - python
-  entry: double-quote-string-fixer
+  entry: python-double-quote-string-fixer
 
 - id: python-fix-encoding-pragma
   name: Fix python encoding pragma
   description: >
     Remove '# -*- coding: utf-8 -*-' from the top of python files
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#fix-encoding-pragma
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#fix-encoding-pragma
   language: python
   types:
     - python
-  entry: fix-encoding-pragma
+  entry: python-fix-encoding-pragma
   args:
     - --remove
 
@@ -314,10 +314,10 @@
   name: Fix requirements.txt
   description: >
     Sorts entries in requirements.txt
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#requirements-txt-fixer
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#requirements-txt-fixer
   language: python
   files: requirements.*\.txt$
-  entry: requirements-txt-fixer
+  entry: python-requirements-txt-fixer
 
 ##########
 ##########
@@ -329,7 +329,7 @@
   name: Format rust files
   description: >
     Format files with rustfmt.
-    Curtosy of https://github.com/doublify/pre-commit-rust
+    Courtesy of https://github.com/doublify/pre-commit-rust
   language: system
   types:
     - rust
@@ -339,7 +339,7 @@
   name: cargo check
   description: >
     Check the package for errors.
-    Curtosy of https://github.com/doublify/pre-commit-rust
+    Courtesy of https://github.com/doublify/pre-commit-rust
   language: system
   pass_filenames: false
   types:
@@ -350,7 +350,7 @@
   name: clippy
   description: >
     Lint rust sources
-    Curtosy of https://github.com/doublify/pre-commit-rust
+    Courtesy of https://github.com/doublify/pre-commit-rust
   language: system
   pass_filenames: false
   types:
@@ -367,11 +367,11 @@
   name: Test shell scripts with shellcheck
   description: >
     Shell scripts conform to shellcheck
-    Curtosy of https://github.com/jumanjihouse/pre-commit-hooks#shellcheck
+    Courtesy of https://github.com/jumanjihouse/pre-commit-hooks#shellcheck
   language: system
   types:
     - shell
-  entry: pre_commit_hooks_shell/shellcheck
+  entry: pre_commit_hooks_shell/ishell-shellcheck
   args:
     - --exclude=SC1091
 
@@ -379,31 +379,31 @@
   name: Non-executable shell files (libs) should have an extension
   description: >
     Non-executable shell files (libs) should have an extension
-    Curtosy of https://github.com/jumanjihouse/pre-commit-hooks#script-must-have-extension
+    Courtesy of https://github.com/jumanjihouse/pre-commit-hooks#script-must-have-extension
   language: script
   types:
     - shell
     - non-executable
-  entry: pre_commit_hooks_shell/scripts-must-have-extension
+  entry: pre_commit_hooks_shell/shell-scripts-must-have-extension
 
 - id: shell-script-must-not-have-extension
   name: Executable shell files (scripts) shouldn't have an extension
   description: >
     Executable shell files (scripts) shouldn't have an extension
-    Curtosy of https://github.com/jumanjihouse/pre-commit-hooks#script-must-not-have-extension
+    Courtesy of https://github.com/jumanjihouse/pre-commit-hooks#script-must-not-have-extension
   language: script
   types:
     - shell
     - executable
-  entry: pre_commit_hooks_shell/scripts-must-not-have-extension
+  entry: pre_commit_hooks_shell/shell-scripts-must-not-have-extension
 
 - id: shell-format
   name: Check shell style with shfmt
   description: >
     Check shell style with shfmt
-    Curtosy of https://github.com/jumanjihouse/pre-commit-hooks#shfmt
+    Courtesy of https://github.com/jumanjihouse/pre-commit-hooks#shfmt
   language: script
-  entry: pre_commit_hooks_shell/shfmt
+  entry: pre_commit_hooks_shell/shell-shfmt
   types:
     - shell
   args:
@@ -422,11 +422,11 @@
   name: Check Toml
   description: >
     This hook checks toml files for parseable syntax.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-toml
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-toml
   language: python
   types:
     - toml
-  entry: check-toml
+  entry: toml-check-syntax
 
 #########
 #########
@@ -438,11 +438,11 @@
   name: Check Xml
   description: >
     This hook checks xml files for parseable syntax.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-xml
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-xml
   language: python
   types:
     - xml
-  entry: check-xml
+  entry: xml-check-syntax
 
 
 ##########
@@ -455,8 +455,8 @@
   name: Check Yaml
   description: >
     This hook checks yaml files for parseable syntax.
-    Curtosy of https://github.com/pre-commit/pre-commit-hooks#check-yaml
+    Courtesy of https://github.com/pre-commit/pre-commit-hooks#check-yaml
   language: python
   types:
     - yaml
-  entry: check-yaml
+  entry: yaml-check-syntax
