@@ -7,15 +7,19 @@ Git hooks to integrate with [pre-commit](http://pre-commit.com).
 - [Configure pre-commit](#configure-pre-commit)
 - [Two ways to invoke pre-commit](#two-ways-to-invoke-pre-commit)
 - [Available hooks](#available-hooks)
-  * [`check-mailmap`](#check-mailmap)
-  * [`forbid-binary`](#forbid-binary)
+  * [`git-check-mailmap`](#git-check-mailmap)
+  * [`git-forbid-binary`](#git-forbid-binary)
   * [`git-check`](#git-check)
   * [`git-dirty`](#git-dirty)
-  * [`markdownlint`](#markdownlint)
-  * [`script-must-have-extension`](#script-must-have-extension)
-  * [`script-must-not-have-extension`](#script-must-not-have-extension)
-  * [`shellcheck`](#shellcheck)
-  * [`shfmt`](#shfmt)
+  * [`markdown-lint`](#markdown-lint)
+  * [`shell-check`](#shellcheck)
+  * [`shell-script-must-have-extension`](#shell-script-must-have-extension)
+  * [`shell-script-must-not-have-extension`](#shell-script-must-not-have-extension)
+  * [`shell-format`](#shell-format)
+  * [`rust-fmt`](#rust-fmt)
+  * [`rust-check`](#rust-check)
+  * [`rust-clippy`](#rust-clippy)
+
 
 ## Configure pre-commit
 
@@ -151,7 +155,7 @@ see if a build step has modified the git tree in unexpected ways.
 The recommended place to persist the configuration is the `.gitignore` file,
 described [**here**](https://git-scm.com/docs/gitignore).
 
-### `markdownlint`
+### `markdown-lint`
 
 **What it does**
 
@@ -172,7 +176,26 @@ For an annotated example of overrides, see in this project:
 * [`.mdlrc`](.mdlrc)
 * [`ci/jumanjistyle.rb`](ci/jumanjistyle.rb)
 
-### `script-must-have-extension`
+
+### `shell-check`
+
+**What it does**
+
+Run shellcheck against scripts.
+
+**More info**
+
+This hook uses the `identify` library of pre-commit to identify shell scripts.
+If the file is a shell script, then run shellcheck against the file.
+
+By default, this hooks passes `-e SC1091` to shellcheck.
+Override locally with the `args` parameter in `.pre-commit-config.yaml`.
+
+:warning: The `shellcheck` hook requires
+[shellcheck](https://github.com/koalaman/shellcheck).
+
+
+### `shell-script-must-have-extension`
 
 **What it does**
 
@@ -206,7 +229,7 @@ Note the use of "name" to override the hook's default name and
 provide context for the override.
 
 
-### `script-must-not-have-extension`
+### `shell-script-must-not-have-extension`
 
 **What it does**
 
@@ -243,24 +266,6 @@ Note the use of "name" to override the hook's default name and
 provide context for the override.
 
 
-### `shellcheck`
-
-**What it does**
-
-Run shellcheck against scripts.
-
-**More info**
-
-This hook uses the `identify` library of pre-commit to identify shell scripts.
-If the file is a shell script, then run shellcheck against the file.
-
-By default, this hooks passes `-e SC1091` to shellcheck.
-Override locally with the `args` parameter in `.pre-commit-config.yaml`.
-
-:warning: The `shellcheck` hook requires
-[shellcheck](https://github.com/koalaman/shellcheck).
-
-
 ### `shfmt`
 
 **What it does**
@@ -278,3 +283,31 @@ Override locally with the `args` parameter in `.pre-commit-config.yaml`.
 
 :warning: The `shfmt` hook requires
 [shfmt](https://github.com/mvdan/sh/releases).
+
+
+### `rust-fmt`
+
+**What it does**
+
+Run `rust-fmt` against rust files.
+
+
+### `rust-check`
+
+**What it does**
+
+Run `cargo check` against rust files.
+
+
+
+### `rust-clippy`
+
+**What it does**
+
+Run `cargo clippy` against rust files.
+
+
+
+## Sources
+
+- [jumanjihouse](https://github.com/jumanjihouse/pre-commit-hooks)

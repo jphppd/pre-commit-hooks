@@ -4,38 +4,78 @@
 # which hooks are provided by this repo
 # for use by other git repos.
 
+#- id: the id of the hook - used in pre-commit-config.yaml.
+## Description
+#  name: the name of the hook, shown during hook execution.
+#  description: description of the hook. used for metadata purposes only.
+## Installation
+#  language: the language of the hook, tells pre-commit how to install the hook.
+#  language_version: overrides language version.
+## Scope
+#  files: the pattern of files to run on.
+#  exclude: exclude files that were matched by files
+#  types: list of file types to run on.
+#  exclude_types: exclude files that were matched by types.
+#  always_run: if true this hook will run even if there are no matching files.
+## Output
+#  verbose: if true, forces the output of the hook to be printed.
+## Misc
+#  minimum_pre_commit_version: indicate a minimum compatible pre-commit version.
+#  require_serial: if true, run using a single process.
+## Action
+#  entry: the entry point - the executable to run.
+#  pass_filenames: if false no arguments will be passed to the hook.
+#  args: list of additional parameters to pass to the hook.
+
+# Template
+#- id:
+#  name:
+#  description:
+#  language:
+#  files:
+#  exclude:
+#  types:
+#  exclude_types:
+#  always_run:
+#  entry:
+#  pass_filenames:
+#  args:
+
 #########
 #########
 ## Git ##
 #########
 #########
 
-- id: check-mailmap
-  name: Detect if an email address needs to be added to mailmap
-  entry: check-mailmap
+- id: git-check-mailmap
+  name: Check mailmap
+  description: Detect if an email address needs to be added to mailmap
   language: python
-  always_run: true  # Run on every commit.
-  exclude: .*       # Otherwise runs once per file.
+  exclude: .* # Otherwise runs once per file.
+  always_run: true
+  entry: check-mailmap
 
-- id: forbid-binary
+- id: git-forbid-binary
   name: Forbid binaries
   description: Forbid binary files from being committed
-  entry: pre_commit_hooks/forbid-binary
-  language: script
-  types: ['binary']
+  language: fail
+  types:
+    - binary
+  entry: Committing binary files is not allowed.
 
 - id: git-check
   name: Check for conflict markers and core.whitespace errors
-  # yamllint disable-line rule:line-length
-  description: Use git to check for conflict markers and core.whitespace errors, respecting .gitattributes
-  entry: pre_commit_hooks/git-check
+  description: >
+      Use git to check for conflict markers and core.whitespace errors,
+      respecting .gitattributes
   language: script
+  entry: pre_commit_hooks_shell/git-check
 
 - id: git-dirty
   name: Check if the git tree is dirty
   description: Detect if git tree contains modified, staged, or untracked files
-  entry: pre_commit_hooks/git-dirty
   language: script
+  entry: pre_commit_hooks_shell/git-dirty
 
 #############
 #############
@@ -49,12 +89,13 @@
 ##############
 ##############
 
-- id: markdownlint
+- id: markdown-lint
   name: Check markdown files
   description: Check markdown files and flag style issues
-  entry: pre_commit_hooks_ruby/run-mdl
   language: ruby
-  types: ['markdown']
+  types:
+    - markdown
+  entry: pre_commit_hooks_ruby/run-mdl
 
 
 ###########
@@ -64,36 +105,46 @@
 ###########
 
 
-- id: shellcheck
+- id: shell-check
   name: Test shell scripts with shellcheck
   description: Shell scripts conform to shellcheck
+  language: system
+  types:
+    - shell
   entry: pre_commit_hooks/shellcheck
-  language: script
-  types: [shell]
-  args: [-e, SC1091]
-  additional_dependencies: [shellcheck]
+  args:
+    - --exclude=SC1091
 
-- id: script-must-have-extension
-  name: Non-executable shell script filename ends in .sh
-  description: Non-executable shell script filename ends in .sh
-  entry: pre_commit_hooks/script_must_have_extension
+- id: shell-script-must-have-extension
+  name: Non-executable shell files (libs) should have an extension
+  description: Non-executable shell files (libs) should have an extension
   language: script
-  types: [shell, non-executable]
+  types:
+    - shell
+    - non-executable
+  entry: pre_commit_hooks/scripts-must-have-extension
 
-- id: script-must-not-have-extension
-  name: Executable shell script omits the filename extension
-  description: Executable shell script omits the filename extension
-  entry: pre_commit_hooks/script_must_not_have_extension
+- id: shell-script-must-not-have-extension
+  name: Executable shell files (scripts) shouldn't have an extension
+  description: Executable shell files (scripts) shouldn't have an extension
   language: script
-  types: [shell, executable]
+  types:
+    - shell
+    - executable
+  entry: pre_commit_hooks/scripts-must-not-have-extension
 
-- id: shfmt
+- id: shell-format
   name: Check shell style with shfmt
+  description: Check shell style with shfmt
   language: script
   entry: pre_commit_hooks/shfmt
-  types: [shell]
-  args: ['-l', '-i', '2', '-ci']
-  additional_dependencies: [shfmt]
+  types:
+    - shell
+  args:
+    - -l
+    - -i
+    - '2'
+    - -ci
 
 ##########
 ##########
@@ -106,20 +157,26 @@
   description: Format files with rustfmt.
   entry: rustfmt --
   language: system
-  files: \.rs$
+  types:
+    - file
+    - rust
 
 - id: rust-check
   name: cargo check
   description: Check the package for errors.
   entry: cargo check
   language: system
-  files: \.rs$
   pass_filenames: false
+  types:
+    - file
+    - rust
 
 - id: rust-clippy
   name: clippy
   description: Lint rust sources
   entry: cargo clippy -- -D warnings
   language: system
-  files: \.rs$
   pass_filenames: false
+  types:
+    - file
+    - rust
