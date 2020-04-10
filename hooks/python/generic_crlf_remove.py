@@ -25,7 +25,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     files_with_crlf = list(filter(contains_crlf, args.filenames))
     for file_with_crlf in files_with_crlf:
-        print('Removing CRLF end-lines in: {0}'.format(file_with_crlf))
+        print('Removing CRLF end-lines in: {}'.format(file_with_crlf))
         removes_crlf_in_file(file_with_crlf)
     if files_with_crlf:
         print('')

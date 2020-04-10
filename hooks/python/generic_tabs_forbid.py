@@ -15,7 +15,7 @@ def main(argv=None):
     files_with_tabs = filter(contains_tabs, args.filenames)
     return_code = 0
     for file_with_tabs in files_with_tabs:
-        print('Tabs detected in file: {0}'.format(file_with_tabs))
+        print('Tabs detected in file: {}'.format(file_with_tabs))
         return_code = 1
     return return_code
 

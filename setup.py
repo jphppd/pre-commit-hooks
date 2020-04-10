@@ -45,6 +45,7 @@ setup(
     entry_points={'console_scripts': CONSOLE_SCRIPTS},
     install_requires=[
         'ruamel.yaml',
+        'jinjalint',
         'pylint',
         'pydocstyle',
         'pyupgrade',

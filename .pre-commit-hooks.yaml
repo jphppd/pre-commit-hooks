@@ -292,14 +292,31 @@
   name: Run clang-format
   description: >
     Run clang-format
+  language: system
   types:
     - c
     - c++
     - header
-  language: system
   entry: clang-format -i
   args:
     - '--style={ColumnLimit: 99}'
+
+###########
+###########
+## Jinja ##
+###########
+###########
+
+- id: jinja-lint
+  name: jinja-lint
+  description: >
+    A linter which checks the indentation and the correctness
+    of Jinja-like/HTML templates.
+    Origin: https://github.com/motet-a/jinjalint
+  language: python
+  types:
+    - jinja
+  entry: jinjalint
 
 ##########
 ##########
@@ -522,6 +539,16 @@
   types:
     - ruby
   entry: ruby-rubocop
+
+- id: ruby-lint
+  name: ruby-lint
+  description: >
+    Ruby-lint is a static code analysis tool for Ruby.
+    Origin: https://github.com/YorickPeterse/ruby-lint
+  language: ruby
+  types:
+    - ruby
+  entry: ruby-lint
 
 ##########
 ##########

@@ -30,7 +30,7 @@ def main(argv=None):
     files_with_tabs = list(filter(contains_tabs, args.filenames))
     for file_with_tabs in files_with_tabs:
         print(
-            'Substituting tabs in: {0} by {1} whitespaces'.format(
+            'Substituting tabs in: {} by {} whitespaces'.format(
                 file_with_tabs, args.whitespaces_count
             )
         )

@@ -18,7 +18,7 @@ def main(argv=None):
     files_with_crlf = filter(contains_crlf, args.filenames)
     return_code = 0
     for file_with_crlf in files_with_crlf:
-        print('CRLF end-lines detected in file: {0}'.format(file_with_crlf))
+        print('CRLF end-lines detected in file: {}'.format(file_with_crlf))
         return_code = 1
     return return_code
 
