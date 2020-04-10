@@ -282,6 +282,24 @@
     perl -pi* -e
     's/\xe2\x80\x93/-/g && ($t = 1) && print STDERR $_; END{{exit $t}}'
 
+#############
+#############
+## Ansible ##
+#############
+#############
+
+- id: ansible-lint
+  name: Ansible-lint
+  description: >
+    This hook runs ansible-lint.
+    Origin: https://github.com/ansible/ansible-lint
+  language: python
+  # do not pass files to ansible-lint, see:
+  # https://github.com/ansible/ansible-lint/issues/611
+  pass_filenames: false
+  always_run: true
+  entry: ansible-lint --force-color .
+
 ###########
 ###########
 ## C/C++ ##
@@ -364,6 +382,22 @@
   entry: hooks/ruby/markdown-linter
   args:
     - --rules ~MD024
+
+############
+############
+## Puppet ##
+############
+############
+
+- id: puppet-lint
+  name: puppet-lint
+  description: >
+    Run puppet linter
+    Origin: http://puppet-lint.com/
+  language: ruby
+  types:
+    - puppet
+  entry: puppet-lint
 
 ############
 ############

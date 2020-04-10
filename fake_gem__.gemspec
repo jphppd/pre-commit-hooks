@@ -8,6 +8,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'bundler-audit'
   s.add_dependency 'fasterer'
   s.add_dependency 'mdl'
+  s.add_dependency 'puppet-lint'
   s.add_dependency 'rake'
   s.add_dependency 'reek'
   s.add_dependency 'rubocop'

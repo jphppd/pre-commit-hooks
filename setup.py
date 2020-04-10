@@ -44,6 +44,7 @@ setup(
     packages=find_packages('hooks'),
     entry_points={'console_scripts': CONSOLE_SCRIPTS},
     install_requires=[
+        'ansible-lint'
         'ruamel.yaml',
         'jinjalint',
         'pylint',
