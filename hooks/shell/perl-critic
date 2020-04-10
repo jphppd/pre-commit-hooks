@@ -9,7 +9,8 @@ set -eu
 
 cmd=perlcritic
 if ! command -v "${cmd}" >/dev/null 2>&1; then
-    echo "This check needs ${cmd} from https://github.com/Perl-Critic/Perl-Critic."
+    echo "This check needs ${cmd}"
+    echo "from https://github.com/Perl-Critic/Perl-Critic."
     exit 1
 fi
 

@@ -7,12 +7,13 @@ set -eu
 
 readonly DEBUG=${DEBUG:-unset}
 if [ "${DEBUG}" != unset ]; then
-  set -x
+    set -x
 fi
 
 if ! command -v shellcheck >/dev/null 2>&1; then
-  echo 'This check needs shellcheckfrom https://github.com/koalaman/shellcheck/releases'
-  exit 1
+    echo 'This check needs shellcheck'
+    echo 'from https://github.com/koalaman/shellcheck/releases'
+    exit 1
 fi
 
 shellcheck "$@"
