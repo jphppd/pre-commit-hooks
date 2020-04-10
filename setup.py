@@ -15,6 +15,10 @@ scripts = [
     'generic-detect-private-key',
     'generic-end-of-file-fixer',
     'generic-trailing-whitespace-fixer',
+    'generic-crlf-forbid',
+    'generic-crlf-remove',
+    'generic-tabs-forbid',
+    'generic-tabs-remove',
     'json-check-syntax',
     'json-pretty-format',
     'python-check-ast',
@@ -30,7 +34,7 @@ scripts = [
 ]
 
 scripts_paths = [
-    'pre_commit_hooks_python.{}:main'.format(script.replace('-', '_')) for script in scripts
+    'python.{}:main'.format(script.replace('-', '_')) for script in scripts
 ]
 
 console_scripts = ['{} = {}'.format(script, path) for script, path in zip(scripts, scripts_paths)]
@@ -38,7 +42,8 @@ console_scripts = ['{} = {}'.format(script, path) for script, path in zip(script
 setup(
     name='pre-commit-hooks',
     description='Hooks for pre-commit',
-    packages=find_packages('.'),
+    package_dir={'': 'hooks'},
+    packages=find_packages('hooks'),
     entry_points={'console_scripts': console_scripts},
     install_requires=[
         'ruamel.yaml'

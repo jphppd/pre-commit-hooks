@@ -55,7 +55,7 @@
   language: python
   exclude: .* # Otherwise runs once per file.
   always_run: true
-  entry: check-mailmap
+  entry: git-check-mailmap
 
 - id: git-forbid-binary
   name: Forbid binaries
@@ -74,7 +74,7 @@
     respecting .gitattributes
     Courtesy of https://github.com/jumanjihouse/pre-commit-hooks#git-check
   language: script
-  entry: pre_commit_hooks_shell/git-check
+  entry: hooks/shell/git-check
 
 - id: git-dirty
   name: Check if the git tree is dirty
@@ -82,7 +82,7 @@
     Detect if git tree contains modified, staged, or untracked files
     curtosy: https://github.com/jumanjihouse/pre-commit-hooks#git-dirty
   language: script
-  entry: pre_commit_hooks_shell/git-dirty
+  entry: hooks/shell/git-dirty
 
 - id: git-check-added-large-files
   name: Check for added large files
@@ -102,7 +102,7 @@
   language: python
   types:
     - text
-  entry: check-merge-conflict
+  entry: git-check-merge-conflict
 
 #############
 #############
@@ -128,7 +128,7 @@
   language: python
   types:
     - python
-  entry: check-case-conflict
+  entry: generic-check-case-conflict
 
 - id: generic-check-executables-have-shebangs
   name: Check that executables have shebangs
@@ -191,12 +191,95 @@
     - text
   entry: generic-trailing-whitespace-fixer
 
+- id: generic-crlf-forbid
+  name: CRLF end-lines checker
+  description: >
+    Forbid files containing CRLF end-lines to be committed
+    Courtesy of https://github.com/Lucas-C/pre-commit-hooks
+  language: python
+  types:
+    - text
+  entry: generic-crlf-forbid
+
+- id: generic-crlf-remove
+  name: CRLF end-lines remover
+  description: >
+    Replace CRLF end-lines by LF ones before committing
+    Courtesy of https://github.com/Lucas-C/pre-commit-hooks
+  language: python
+  types:
+    - text
+  entry: generic-crlf-remove
+
+- id: generic-tabs-forbid
+  name: No-tabs checker
+  description: >
+    Forbid files containing tabs to be committed
+    Courtesy of https://github.com/Lucas-C/pre-commit-hooks
+  language: python
+  exclude: (Makefile|debian/rules)(\.in)?$
+  types:
+    - text
+  entry: generic-tabs-forbid
+
+- id: generic-tabs-remove
+  name: Tabs remover
+  description: >
+    Replace tabs by whitespaces before committing
+    Courtesy of https://github.com/Lucas-C/pre-commit-hooks
+  language: python
+  exclude: (Makefile|debian/rules)(\.in)?$
+  types:
+    - text
+  entry: generic-tabs-remove
+  args:
+    - --whitespaces-count=4
+
+- id: generic-nbsp-forbid
+  name: Detect nbsp U+00A0
+  description: >
+    Detect unicode non-breaking space character U+00A0 aka M-BM-
+    Courtesy of https://github.com/Lucas-C/pre-commit-hooks
+  language: system
+  types:
+    - text
+  entry: perl -ne 'print if $m = /\xc2\xa0/; $t ||= $m; END{{exit $t}}'
+
+- id: generic-nbsp-remove
+  name: Remove nbsp U+00A0
+  description: >
+    Remove unicode non-breaking space character U+00A0 aka M-BM-
+    Courtesy of https://github.com/Lucas-C/pre-commit-hooks
+  language: system
+  types:
+    - text
+  entry: perl -pi* -e 's/\xc2\xa0/ /g && ($t = 1) && print STDERR $_; END{{exit $t}}'
+
+- id: generic-en-dashes-forbid
+  name: Detect en dashes U+2013
+  description: >
+    Detect the EXTREMELY confusing unicode character U+2013
+    Courtesy of https://github.com/Lucas-C/pre-commit-hooks
+  language: system
+  types:
+    - text
+  entry: perl -ne 'print if $m = /\xe2\x80\x93/; $t ||= $m; END{{exit $t}}'
+
+- id: generic-en-dashes-remove
+  name: Remove en dashes U+2013
+  description: >
+    Remove the EXTREMELY confusing unicode character U+2013
+    Courtesy of https://github.com/Lucas-C/pre-commit-hooks
+  language: system
+  types:
+    - text
+  entry: perl -pi* -e 's/\xe2\x80\x93/-/g && ($t = 1) && print STDERR $_; END{{exit $t}}'
+
 ##########
 ##########
 ## JSON ##
 ##########
 ##########
-
 
 - id: json-check-syntax
   name: Check JSON
@@ -207,7 +290,6 @@
   types:
     - json
   entry: json-check-syntax
-
 
 - id: json-pretty-format
   name: Pretty format JSON
@@ -221,7 +303,6 @@
   args:
     - --autofix
     - --indent=2
-
 
 ##############
 ##############
@@ -237,10 +318,9 @@
   language: ruby
   types:
     - markdown
-  entry: pre_commit_hooks_ruby/run-mdl
+  entry: hooks/ruby/markdown-linter
   args:
     - --rules ~MD024
-
 
 ############
 ############
@@ -363,6 +443,16 @@
 ###########
 ###########
 
+- id: shell-check-syntax
+  name: Check Shell scripts syntax corectness
+  description: >
+    Check Shell scripts syntax corectness
+    Courtesy of https://github.com/Lucas-C/pre-commit-hooks
+  language: system
+  types:
+    - shell
+  entry: bash -n
+
 - id: shell-check
   name: Test shell scripts with shellcheck
   description: >
@@ -371,7 +461,7 @@
   language: system
   types:
     - shell
-  entry: pre_commit_hooks_shell/ishell-shellcheck
+  entry: hooks/shell/shell-shellcheck
   args:
     - --exclude=SC1091
 
@@ -384,7 +474,7 @@
   types:
     - shell
     - non-executable
-  entry: pre_commit_hooks_shell/shell-scripts-must-have-extension
+  entry: hooks/shell/shell-scripts-must-have-extension
 
 - id: shell-script-must-not-have-extension
   name: Executable shell files (scripts) shouldn't have an extension
@@ -395,7 +485,7 @@
   types:
     - shell
     - executable
-  entry: pre_commit_hooks_shell/shell-scripts-must-not-have-extension
+  entry: hooks/shell/shell-scripts-must-not-have-extension
 
 - id: shell-format
   name: Check shell style with shfmt
@@ -403,7 +493,7 @@
     Check shell style with shfmt
     Courtesy of https://github.com/jumanjihouse/pre-commit-hooks#shfmt
   language: script
-  entry: pre_commit_hooks_shell/shell-shfmt
+  entry: hooks/shell/shell-shfmt
   types:
     - shell
   args:
@@ -443,7 +533,6 @@
   types:
     - xml
   entry: xml-check-syntax
-
 
 ##########
 ##########

@@ -6,9 +6,9 @@ from typing import Optional
 from typing import Sequence
 from typing import Set
 
-from pre_commit_hooks_python.util import added_files
-from pre_commit_hooks_python.util import CalledProcessError
-from pre_commit_hooks_python.util import cmd_output
+from python.util import added_files
+from python.util import CalledProcessError
+from python.util import cmd_output
 
 
 def lfs_files() -> Set[str]:

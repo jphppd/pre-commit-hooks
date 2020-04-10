@@ -5,8 +5,8 @@ Gem::Specification.new do |s|
   s.summary = 'pre-commit hooks for ruby projects'
   s.description = 'pre-commit hooks for ruby projects'
   s.add_dependency 'mdl', '0.5.0'
-  s.bindir = 'pre_commit_hooks_ruby'
+  s.bindir = 'hooks/ruby'
   s.executables = [
-    'run-mdl',
+    'markdown-linter',
   ]
 end
