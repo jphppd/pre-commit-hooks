@@ -94,3 +94,32 @@
   types: [shell]
   args: ['-l', '-i', '2', '-ci']
   additional_dependencies: [shfmt]
+
+##########
+##########
+## Rust ##
+##########
+##########
+
+- id: rust-fmt
+  name: Format rust files
+  description: Format files with rustfmt.
+  entry: rustfmt --
+  language: system
+  files: \.rs$
+
+- id: rust-check
+  name: cargo check
+  description: Check the package for errors.
+  entry: cargo check
+  language: system
+  files: \.rs$
+  pass_filenames: false
+
+- id: rust-clippy
+  name: clippy
+  description: Lint rust sources
+  entry: cargo clippy -- -D warnings
+  language: system
+  files: \.rs$
+  pass_filenames: false
