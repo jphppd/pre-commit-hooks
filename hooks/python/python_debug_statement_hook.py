@@ -1,5 +1,6 @@
 import argparse
 import ast
+import sys
 import traceback
 from typing import List
 from typing import NamedTuple
@@ -20,31 +21,31 @@ class DebugStatementParser(ast.NodeVisitor):
     def __init__(self) -> None:
         self.breakpoints: List[Debug] = []
 
-    def visit_Import(self, node: ast.Import) -> None:
+    def visit_Import(self, node: ast.Import) -> None:  # pylint: disable=invalid-name
         for name in node.names:
             if name.name in DEBUG_STATEMENTS:
-                st = Debug(node.lineno, node.col_offset, name.name, 'imported')
-                self.breakpoints.append(st)
+                statmt = Debug(node.lineno, node.col_offset, name.name, 'imported')
+                self.breakpoints.append(statmt)
 
-    def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
+    def visit_ImportFrom(self, node: ast.ImportFrom) -> None:  # pylint: disable=invalid-name
         if node.module in DEBUG_STATEMENTS:
-            st = Debug(node.lineno, node.col_offset, node.module, 'imported')
-            self.breakpoints.append(st)
+            statmt = Debug(node.lineno, node.col_offset, node.module, 'imported')
+            self.breakpoints.append(statmt)
 
-    def visit_Call(self, node: ast.Call) -> None:
+    def visit_Call(self, node: ast.Call) -> None:  # pylint: disable=invalid-name
         """python3.7+ breakpoint()"""
         if isinstance(node.func, ast.Name) and node.func.id == 'breakpoint':
-            st = Debug(node.lineno, node.col_offset, node.func.id, 'called')
-            self.breakpoints.append(st)
+            statmt = Debug(node.lineno, node.col_offset, node.func.id, 'called')
+            self.breakpoints.append(statmt)
         self.generic_visit(node)
 
 
 def check_file(filename: str) -> int:
     try:
-        with open(filename, 'rb') as f:
-            ast_obj = ast.parse(f.read(), filename=filename)
+        with open(filename, 'rb') as file_handler:
+            ast_obj = ast.parse(file_handler.read(), filename=filename)
     except SyntaxError:
-        print(f'{filename} - Could not parse ast')
+        print('{} - Could not parse ast'.format(filename))
         print()
         print('\t' + traceback.format_exc().replace('\n', '\n\t'))
         print()
@@ -53,8 +54,8 @@ def check_file(filename: str) -> int:
     visitor = DebugStatementParser()
     visitor.visit(ast_obj)
 
-    for bp in visitor.breakpoints:
-        print(f'{filename}:{bp.line}:{bp.col} - {bp.name} {bp.reason}')
+    for bkpt in visitor.breakpoints:
+        print('{}:{}:{} - {} {}'.format(filename, bkpt.line, bkpt.col, bkpt.name, bkpt.reason))
 
     return int(bool(visitor.breakpoints))
 
@@ -71,4 +72,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

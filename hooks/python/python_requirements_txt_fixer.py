@@ -1,4 +1,5 @@
 import argparse
+import sys
 from typing import IO
 from typing import List
 from typing import Optional
@@ -15,9 +16,10 @@ class Requirement:
 
     @property
     def name(self) -> bytes:
-        assert self.value is not None, self.value
+        if self.value is None:
+            raise RuntimeError(self.value)
         for egg in (b'#egg=', b'&egg='):
-            if egg in self.value:
+            if egg in self.value:  # pylint: disable=unsupported-membership-test
                 return self.value.lower().partition(egg)[-1]
 
         return self.value.lower().partition(b'==')[0]
@@ -25,18 +27,18 @@ class Requirement:
     def __lt__(self, requirement: 'Requirement') -> int:
         # \n means top of file comment, so always return True,
         # otherwise just do a string comparison with value.
-        assert self.value is not None, self.value
+        if self.value is None:
+            raise RuntimeError(self.value)
         if self.value == b'\n':
             return True
-        elif requirement.value == b'\n':
+        if requirement.value == b'\n':
             return False
-        else:
-            return self.name < requirement.name
+        return self.name < requirement.name
 
 
-def fix_requirements(f: IO[bytes]) -> int:
+def fix_requirements(file: IO[bytes]) -> int:  # pylint: disable=too-many-branches
     requirements: List[Requirement] = []
-    before = list(f)
+    before = list(file)
     after: List[bytes] = []
 
     before_string = b''.join(before)
@@ -54,7 +56,7 @@ def fix_requirements(f: IO[bytes]) -> int:
         # If the most recent requirement object has a value, then it's
         # time to start building the next requirement object.
 
-        if not len(requirements) or requirements[-1].value is not None:
+        if not requirements or requirements[-1].value is not None:
             requirements.append(Requirement())
 
         requirement = requirements[-1]
@@ -62,7 +64,7 @@ def fix_requirements(f: IO[bytes]) -> int:
         # If we see a newline before any requirements, then this is a
         # top of file comment.
         if len(requirements) == 1 and line.strip() == b'':
-            if (len(requirement.comments) and requirement.comments[0].startswith(b'#')):
+            if (requirement.comments and requirement.comments[0].startswith(b'#')):
                 requirement.value = b'\n'
             else:
                 requirement.comments.append(line)
@@ -83,7 +85,8 @@ def fix_requirements(f: IO[bytes]) -> int:
 
     for requirement in sorted(requirements):
         after.extend(requirement.comments)
-        assert requirement.value, requirement.value
+        if not requirement.value:
+            raise RuntimeError(requirement.value)
         after.append(requirement.value)
     after.extend(rest)
 
@@ -91,11 +94,10 @@ def fix_requirements(f: IO[bytes]) -> int:
 
     if before_string == after_string:
         return PASS
-    else:
-        f.seek(0)
-        f.write(after_string)
-        f.truncate()
-        return FAIL
+    file.seek(0)
+    file.write(after_string)
+    file.truncate()
+    return FAIL
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -118,4 +120,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

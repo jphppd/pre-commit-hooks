@@ -9,8 +9,8 @@ GITHUB_NON_PERMALINK = re.compile(br'https://github.com/[^/ ]+/[^/ ]+/blob/maste
 
 def _check_filename(filename: str) -> int:
     retv = 0
-    with open(filename, 'rb') as f:
-        for i, line in enumerate(f, 1):
+    with open(filename, 'rb') as file_handler:
+        for i, line in enumerate(file_handler, 1):
             if GITHUB_NON_PERMALINK.search(line):
                 sys.stdout.write(f'{filename}:{i}:')
                 sys.stdout.flush()
@@ -36,4 +36,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

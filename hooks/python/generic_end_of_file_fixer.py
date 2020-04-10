@@ -3,6 +3,7 @@ import os
 from typing import IO
 from typing import Optional
 from typing import Sequence
+import sys
 
 
 def fix_file(file_obj: IO[bytes]) -> int:
@@ -40,7 +41,7 @@ def fix_file(file_obj: IO[bytes]) -> int:
     for sequence in (b'\n', b'\r\n', b'\r'):
         if remaining == sequence:
             return 0
-        elif remaining.startswith(sequence):
+        if remaining.startswith(sequence):
             file_obj.seek(position + len(sequence))
             file_obj.truncate()
             return 1
@@ -67,4 +68,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

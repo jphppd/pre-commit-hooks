@@ -1,4 +1,5 @@
 import argparse
+import sys
 from typing import Optional
 from typing import Sequence
 
@@ -13,13 +14,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     retval = 0
     for filename in args.filenames:
         try:
-            with open(filename) as f:
-                toml.load(f)
+            with open(filename) as file_handler:
+                toml.load(file_handler)
         except toml.TomlDecodeError as exc:
-            print(f'{filename}: {exc}')
+            print('{}: {}'.format(filename, exc))
             retval = 1
     return retval
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

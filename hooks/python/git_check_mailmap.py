@@ -26,7 +26,7 @@ def get_git_mail_map():
 
     for line in check_output(
         ['git', 'log', '--use-mailmap', '--pretty=%aN{}%aE'.format(separator)],
-        universal_newlines=True,
+        universal_newlines=True
     ).splitlines():
         if line:
             name, email = line.split(separator)

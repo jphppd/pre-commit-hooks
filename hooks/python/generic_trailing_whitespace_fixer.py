@@ -1,14 +1,11 @@
 import argparse
 import os
+import sys
 from typing import Optional
 from typing import Sequence
 
 
-def _fix_file(
-    filename: str,
-    is_markdown: bool,
-    chars: Optional[bytes],
-) -> bool:
+def _fix_file(filename: str, is_markdown: bool, chars: Optional[bytes]) -> bool:
     with open(filename, mode='rb') as file_processed:
         lines = file_processed.readlines()
     newlines = [_process_line(line, is_markdown, chars) for line in lines]
@@ -17,15 +14,10 @@ def _fix_file(
             for line in newlines:
                 file_processed.write(line)
         return True
-    else:
-        return False
+    return False
 
 
-def _process_line(
-    line: bytes,
-    is_markdown: bool,
-    chars: Optional[bytes],
-) -> bytes:
+def _process_line(line: bytes, is_markdown: bool, chars: Optional[bytes]) -> bytes:
     if line[-2:] == b'\r\n':
         eol = b'\r\n'
         line = line[:-2]
@@ -89,12 +81,12 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     return_code = 0
     for filename in args.filenames:
         _, extension = os.path.splitext(filename.lower())
-        md = all_markdown or extension in md_exts
-        if _fix_file(filename, md, chars):
+        mkdown = all_markdown or extension in md_exts
+        if _fix_file(filename, mkdown, chars):
             print(f'Fixing {filename}')
             return_code = 1
     return return_code
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

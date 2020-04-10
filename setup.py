@@ -3,7 +3,7 @@
 from setuptools import find_packages
 from setuptools import setup
 
-scripts = [
+SCRIPTS = [
     'git-check-mailmap',
     'git-check-added-large-files',
     'git-check-merge-conflict',
@@ -33,19 +33,20 @@ scripts = [
     'yaml-check-syntax',
 ]
 
-scripts_paths = [
-    'python.{}:main'.format(script.replace('-', '_')) for script in scripts
-]
+SCRIPTS_PATHS = ['python.{}:main'.format(script.replace('-', '_')) for script in SCRIPTS]
 
-console_scripts = ['{} = {}'.format(script, path) for script, path in zip(scripts, scripts_paths)]
+CONSOLE_SCRIPTS = ['{} = {}'.format(script, path) for script, path in zip(SCRIPTS, SCRIPTS_PATHS)]
 
 setup(
     name='pre-commit-hooks',
     description='Hooks for pre-commit',
     package_dir={'': 'hooks'},
     packages=find_packages('hooks'),
-    entry_points={'console_scripts': console_scripts},
+    entry_points={'console_scripts': CONSOLE_SCRIPTS},
     install_requires=[
-        'ruamel.yaml'
+        'ruamel.yaml',
+        'pylint',
+        'pydocstyle',
+        'yapf',
     ]
 )

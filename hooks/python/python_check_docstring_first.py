@@ -36,14 +36,13 @@ def check_docstring_first(src: bytes, filename: str = '<unknown>') -> int:
                     f'(first docstring on line {found_docstring_line}).',
                 )
                 return 1
-            elif found_code_line is not None:
+            if found_code_line is not None:
                 print(
                     f'{filename}:{sline} Module docstring appears after code '
                     f'(code seen on line {found_code_line}).',
                 )
                 return 1
-            else:
-                found_docstring_line = sline
+            found_docstring_line = sline
         elif tok_type not in NON_CODE_TOKENS and found_code_line is None:
             found_code_line = sline
 
@@ -58,8 +57,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     retv = 0
 
     for filename in args.filenames:
-        with open(filename, 'rb') as f:
-            contents = f.read()
+        with open(filename, 'rb') as file_handler:
+            contents = file_handler.read()
         retv |= check_docstring_first(contents, filename=filename)
 
     return retv

@@ -1,5 +1,6 @@
 import argparse
 import ast
+import sys
 from typing import List
 from typing import NamedTuple
 from typing import Optional
@@ -36,7 +37,7 @@ class Visitor(ast.NodeVisitor):
     def _check_dict_call(self, node: ast.Call) -> bool:
         return self.allow_dict_kwargs and bool(node.keywords)
 
-    def visit_Call(self, node: ast.Call) -> None:
+    def visit_Call(self, node: ast.Call) -> None:  # pylint: disable=invalid-name
         if not isinstance(node.func, ast.Name):
             # Ignore functions that are object attributes (`foo.bar()`).
             # Assume that if the user calls `builtins.list()`, they know what
@@ -46,7 +47,7 @@ class Visitor(ast.NodeVisitor):
             return
         if node.func.id == 'dict' and self._check_dict_call(node):
             return
-        elif node.args:
+        if node.args:
             return
         self.builtin_type_calls.append(Call(node.func.id, node.lineno, node.col_offset), )
 
@@ -56,8 +57,8 @@ def check_file(
     ignore: Optional[Sequence[str]] = None,
     allow_dict_kwargs: bool = True,
 ) -> List[Call]:
-    with open(filename, 'rb') as f:
-        tree = ast.parse(f.read(), filename=filename)
+    with open(filename, 'rb') as file_handler:
+        tree = ast.parse(file_handler.read(), filename=filename)
     visitor = Visitor(ignore=ignore, allow_dict_kwargs=allow_dict_kwargs)
     visitor.visit(tree)
     return visitor.builtin_type_calls
@@ -83,7 +84,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     args = parser.parse_args(argv)
 
-    rc = 0
+    retc = 0
     for filename in args.filenames:
         calls = check_file(
             filename,
@@ -91,14 +92,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             allow_dict_kwargs=args.allow_dict_kwargs,
         )
         if calls:
-            rc = rc or 1
+            retc = retc or 1
         for call in calls:
             print(
-                f'{filename}:{call.line}:{call.column}: '
-                f'replace {call.name}() with {BUILTIN_TYPES[call.name]}',
+                '{}:{}:{}: '.format(filename, call.line, call.column),
+                'replace {}() with {}'.format(call.name, BUILTIN_TYPES[call.name])
             )
-    return rc
+    return retc
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

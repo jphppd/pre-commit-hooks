@@ -1,6 +1,7 @@
 import argparse
 import json
 from difflib import unified_diff
+import sys
 from typing import List
 from typing import Mapping
 from typing import Optional
@@ -14,7 +15,7 @@ def _get_pretty_format(
     indent: str,
     ensure_ascii: bool = True,
     sort_keys: bool = True,
-    top_keys: Sequence[str] = (),
+    top_keys: Sequence[str] = ()
 ) -> str:
     def pairs_first(pairs: Sequence[Tuple[str, str]]) -> Mapping[str, str]:
         before = [pair for pair in pairs if pair[0] in top_keys]
@@ -33,21 +34,21 @@ def _get_pretty_format(
 
 
 def _autofix(filename: str, new_contents: str) -> None:
-    print(f'Fixing file {filename}')
-    with open(filename, 'w', encoding='UTF-8') as f:
-        f.write(new_contents)
+    print('Fixing file {}'.format(filename))
+    with open(filename, 'w', encoding='UTF-8') as file_handler:
+        file_handler.write(new_contents)
 
 
-def parse_num_to_int(s: str) -> Union[int, str]:
+def parse_num_to_int(string: str) -> Union[int, str]:
     """Convert string numbers to int, leaving strings as is."""
     try:
-        return int(s)
+        return int(string)
     except ValueError:
-        return s
+        return string
 
 
-def parse_topkeys(s: str) -> List[str]:
-    return s.split(',')
+def parse_topkeys(string: str) -> List[str]:
+    return string.split(',')
 
 
 def get_diff(source: str, target: str, file: str) -> str:
@@ -102,8 +103,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     status = 0
 
     for json_file in args.filenames:
-        with open(json_file, encoding='UTF-8') as f:
-            contents = f.read()
+        with open(json_file, encoding='UTF-8') as file_handler:
+            contents = file_handler.read()
 
         try:
             pretty_contents = _get_pretty_format(
@@ -132,4 +133,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

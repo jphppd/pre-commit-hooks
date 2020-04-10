@@ -2,6 +2,7 @@ import argparse
 import json
 import math
 import os
+import sys
 from typing import Optional
 from typing import Sequence
 from typing import Set
@@ -26,9 +27,9 @@ def find_large_added_files(filenames: Sequence[str], maxkb: int) -> int:
     # us about
     retv = 0
     for filename in (added_files() & set(filenames)) - lfs_files():
-        kb = int(math.ceil(os.stat(filename).st_size / 1024))
-        if kb > maxkb:
-            print(f'{filename} ({kb} KB) exceeds {maxkb} KB.')
+        kbytes = int(math.ceil(os.stat(filename).st_size / 1024))
+        if kbytes > maxkb:
+            print('{} ({} KB) exceeds {} KB.'.format(filename, kbytes, maxkb))
             retv = 1
 
     return retv
@@ -53,4 +54,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

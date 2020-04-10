@@ -7,21 +7,20 @@ from typing import Sequence
 
 
 def check_has_shebang(path: str) -> int:
-    with open(path, 'rb') as f:
-        first_bytes = f.read(2)
+    with open(path, 'rb') as file_handler:
+        first_bytes = file_handler.read(2)
 
     if first_bytes != b'#!':
         quoted = shlex.quote(path)
         print(
-            f'{path}: marked executable but has no (or invalid) shebang!\n'
-            f"  If it isn't supposed to be executable, try: "
-            f'`chmod -x {quoted}`\n'
-            f'  If it is supposed to be executable, double-check its shebang.',
+            '{}: marked executable but has no (or invalid) shebang!\n'.format(path),
+            "  If it isn't supposed to be executable, try: ",
+            '`chmod -x {}`\n'.format(quoted),
+            '  If it is supposed to be executable, double-check its shebang.',
             file=sys.stderr,
         )
         return 1
-    else:
-        return 0
+    return 0
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -38,4 +37,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

@@ -275,6 +275,25 @@
     - text
   entry: perl -pi* -e 's/\xe2\x80\x93/-/g && ($t = 1) && print STDERR $_; END{{exit $t}}'
 
+###########
+###########
+## C/C++ ##
+###########
+###########
+
+- id: clang-format
+  name: Run clang-format
+  description: >
+    Run clang-format
+  types:
+    - c
+    - c++
+    - header
+  language: system
+  entry: clang-format -i
+  args:
+    - '--style={ColumnLimit: 99}'
+
 ##########
 ##########
 ## JSON ##
@@ -398,6 +417,47 @@
   language: python
   files: requirements.*\.txt$
   entry: python-requirements-txt-fixer
+
+- id: python-yapf
+  name: yapf formatter
+  description: >
+    Run yapf formatter
+    Origin: https://github.com/google/yapf
+  language: python
+  types:
+    - python
+  entry: yapf
+  args:
+    - --in-place
+    - '--style={based_on_style: facebook, COLUMN_LIMIT=99}'
+
+- id: python-pylint
+  name: pylint
+  description: >
+    Run pylint
+    Origin: https://github.com/PyCQA/pylint
+  language: python
+  types:
+    - python
+  entry: pylint
+  args:
+    - --max-line-length=99
+    - --enable=all
+    - --disable=locally-disabled
+    - --disable=suppressed-message
+    - --disable=import-error
+    - --disable=bad-continuation
+    - --disable=fixme
+
+- id: python-pydocstyle
+  name: pydocstyle
+  description: >
+    Run pydocstyle
+    Origin: https://github.com/PyCQA/pydocstyle
+  language: python
+  types:
+    - python
+  entry: pydocstyle
 
 ##########
 ##########

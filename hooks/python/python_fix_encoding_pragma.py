@@ -1,4 +1,5 @@
 import argparse
+import sys
 from typing import IO
 from typing import NamedTuple
 from typing import Optional
@@ -67,14 +68,14 @@ def _get_expected_contents(
 
 
 def fix_encoding_pragma(
-    f: IO[bytes],
+    file: IO[bytes],
     remove: bool = False,
     expected_pragma: bytes = DEFAULT_PRAGMA,
 ) -> int:
     expected = _get_expected_contents(
-        f.readline(),
-        f.readline(),
-        f.read(),
+        file.readline(),
+        file.readline(),
+        file.read(),
         expected_pragma,
     )
 
@@ -82,23 +83,22 @@ def fix_encoding_pragma(
     if not expected.rest.strip():
         # If a file only has a shebang or a coding pragma, remove it
         if expected.has_any_pragma or expected.shebang:
-            f.seek(0)
-            f.truncate()
-            f.write(b'')
+            file.seek(0)
+            file.truncate()
+            file.write(b'')
             return 1
-        else:
-            return 0
+        return 0
 
     if expected.is_expected_pragma(remove):
         return 0
 
     # Otherwise, write out the new file
-    f.seek(0)
-    f.truncate()
-    f.write(expected.shebang)
+    file.seek(0)
+    file.truncate()
+    file.write(expected.shebang)
     if not remove:
-        f.write(expected_pragma + expected.ending)
-    f.write(expected.rest)
+        file.write(expected_pragma + expected.ending)
+    file.write(expected.rest)
 
     return 1
 
@@ -132,18 +132,18 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         fmt = 'Added `{pragma}` to {filename}'
 
     for filename in args.filenames:
-        with open(filename, 'r+b') as f:
+        with open(filename, 'r+b') as file_handler:
             file_ret = fix_encoding_pragma(
-                f,
+                file_handler,
                 remove=args.remove,
                 expected_pragma=args.pragma,
             )
             retv |= file_ret
             if file_ret:
-                print(fmt.format(pragma=args.pragma.decode(), filename=filename), )
+                print(fmt.format(pragma=args.pragma.decode(), filename=filename))
 
     return retv
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())

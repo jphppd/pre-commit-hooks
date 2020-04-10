@@ -1,5 +1,5 @@
-from __future__ import print_function
-import argparse, sys
+import argparse
+import sys
 
 
 def contains_crlf(filename):

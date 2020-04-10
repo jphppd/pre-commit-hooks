@@ -1,6 +1,7 @@
 import argparse
 import io
 import re
+import sys
 import tokenize
 from typing import List
 from typing import Optional
@@ -18,10 +19,8 @@ def handle_match(token_text: str) -> str:
         meat = token_text[match.end():-1]
         if '"' in meat or "'" in meat:
             return token_text
-        else:
-            return match.group().replace('"', "'") + meat + "'"
-    else:
-        return token_text
+        return match.group().replace('"', "'") + meat + "'"
+    return token_text
 
 
 def get_line_offsets_by_line_no(src: str) -> List[int]:
@@ -32,9 +31,9 @@ def get_line_offsets_by_line_no(src: str) -> List[int]:
     return offsets
 
 
-def fix_strings(filename: str) -> int:
-    with open(filename, encoding='UTF-8', newline='') as f:
-        contents = f.read()
+def fix_strings(filename: str) -> int:  # pylint: disable=too-many-locals
+    with open(filename, encoding='UTF-8', newline='') as file_handler:
+        contents = file_handler.read()
     line_offsets = get_line_offsets_by_line_no(contents)
 
     # Basically a mutable string
@@ -50,11 +49,10 @@ def fix_strings(filename: str) -> int:
 
     new_contents = ''.join(splitcontents)
     if contents != new_contents:
-        with open(filename, 'w', encoding='UTF-8', newline='') as f:
-            f.write(new_contents)
+        with open(filename, 'w', encoding='UTF-8', newline='') as file_handler:
+            file_handler.write(new_contents)
         return 1
-    else:
-        return 0
+    return 0
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -74,4 +72,4 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
 
 if __name__ == '__main__':
-    exit(main())
+    sys.exit(main())
