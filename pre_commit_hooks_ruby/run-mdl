@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'English'
 
 # NOTE: pre-commit framework only prints output if:

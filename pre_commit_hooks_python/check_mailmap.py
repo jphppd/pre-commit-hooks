@@ -18,6 +18,7 @@ from collections import defaultdict
 from subprocess import check_output
 import sys
 
+
 def get_git_mail_map():
     """Construct mail mapping, as dict {email: [names]}."""
     separator = '::-::'
