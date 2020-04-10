@@ -47,6 +47,8 @@ setup(
         'ruamel.yaml',
         'pylint',
         'pydocstyle',
+        'pyupgrade',
+        'yamllint',
         'yapf',
     ]
 )
