@@ -383,6 +383,32 @@
   args:
     - --rules ~MD024
 
+##########
+##########
+## Perl ##
+##########
+##########
+
+- id: perl-critic
+  name: perl-critic
+  description: >
+    Runs perlcritic, requires script in path
+    Origin: https://github.com/henryykt/pre-commit-perl
+  language: script
+  types:
+    - perl
+  entry: perl-critic
+
+- id: perl-tidy
+  name: perl-tidy
+  description: >
+    Runs perltidy, requires script in path
+    Origin: https://github.com/henryykt/pre-commit-perl
+  language: script
+  types:
+    - perl
+  entry: perl-tidy
+
 ############
 ############
 ## Puppet ##
@@ -392,12 +418,61 @@
 - id: puppet-lint
   name: puppet-lint
   description: >
-    Run puppet linter
+    Check Puppet manifests for stylistic problems
     Origin: http://puppet-lint.com/
   language: ruby
   types:
     - puppet
   entry: puppet-lint
+
+- id: puppet-validate
+  name: Validate Puppet manifests
+  description: >
+    Validate syntax of Puppet manifests
+    Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
+  language: ruby
+  types:
+    - puppet
+  entry: puppet-validate
+
+- id: puppet-erb-validate
+  name: Validate ERB templates
+  description: >
+    Validate syntax of Puppet ERB templates
+    Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
+  language: ruby
+  types:
+    - erb
+  entry: puppet-erb-validate
+
+- id: puppet-epp-validate
+  name: Validate EPP templates
+  description: >
+    Validate syntax of Puppet EPP templates
+    Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
+  language: ruby
+  files: \.epp$
+  entry: puppet-epp-validate
+
+- id: puppet-g10k-validate
+  name: Validate g10k Puppetfile
+  description: >
+    Validate syntax of Puppetfile using g10k
+    Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
+  files: ^Puppetfile$
+  language: ruby
+  entry: puppet-g10k-validate
+
+- id: puppet-r10k-validate
+  name: Validate r10k Puppetfile
+  description: >
+    Validate syntax of Puppetfile using r10k
+    Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
+  language: ruby
+  files: ^Puppetfile$
+  entry: puppet-r10k-validate
+  additional_dependencies:
+    - r10k
 
 ############
 ############
@@ -574,15 +649,14 @@
     - ruby
   entry: ruby-rubocop
 
-- id: ruby-lint
-  name: ruby-lint
+- id: ruby-validate
+  name: Validate ruby syntax
   description: >
-    Ruby-lint is a static code analysis tool for Ruby.
-    Origin: https://github.com/YorickPeterse/ruby-lint
+    Validate syntax of ruby code
   language: ruby
   types:
     - ruby
-  entry: ruby-lint
+  entry: ruby-validate
 
 ##########
 ##########

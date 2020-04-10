@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: false
+
+require 'English'
+
+status = 0
+ARGV.each do |file|
+  output = `erb -x -P -T - -- "#{file}" | ruby -c 2>&1`
+  next if $CHILD_STATUS.exitstatus.zero
+
+  puts "#{file}: failed erb validation"
+  puts output
+  status = 1
+end
+
+exit status

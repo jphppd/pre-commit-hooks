@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: false
+
+require 'English'
+
+status = 0
+options = []
+ARGV.each do |arg|
+  if arg =~ /^--.+=.+$/
+    options.append arg
+    next
+  end
+  output = `puppet parser validate #{options.join(' ')} -- "#{arg}" 2>&1`
+  next if $CHILD_STATUS.exitstatus.zero
+
+  puts "#{arg}: failed Puppet validation"
+  puts output
+  status = 1
+end
+
+exit status

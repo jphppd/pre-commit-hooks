@@ -13,13 +13,18 @@ Gem::Specification.new do |s|
   s.add_dependency 'reek'
   s.add_dependency 'rubocop'
   s.add_dependency 'rubocop-rspec'
-  s.add_dependency 'ruby-lint'
   s.bindir = 'hooks/ruby'
-  s.executables = [
-    'markdown-linter',
-    'ruby-bundle-auditer',
-    'ruby-fasterer',
-    'ruby-reek',
-    'ruby-rubocop'
+  s.executables = %w[
+    markdown-linter
+    puppet-erb-validate
+    puppet-epp-validate
+    puppet-g10k-validate
+    puppet-r10k-validate
+    puppet-validate
+    ruby-bundle-auditer
+    ruby-fasterer
+    ruby-reek
+    ruby-rubocop
+    ruby-validate
   ]
 end

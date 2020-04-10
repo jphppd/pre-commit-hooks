@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: false
+
 require 'English'
 
 # NOTE: pre-commit framework only prints output if:
