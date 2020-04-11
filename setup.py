@@ -19,6 +19,7 @@ SCRIPTS = [
     'generic-crlf-remove',
     'generic-tabs-forbid',
     'generic-tabs-remove',
+    'html-validate',
     'json-check-syntax',
     'json-pretty-format',
     'python-check-ast',

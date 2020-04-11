@@ -321,6 +321,28 @@
   args:
     - '--style={ColumnLimit: 99}'
 
+##########
+##########
+## Html ##
+##########
+##########
+
+- id: html-validate
+  name: '[html] syntax validator'
+  description: >
+    HTML syntax validator using W3C v.Nu checker,
+    with support for handlebars/jinja2 templates
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-java
+  language: python
+  types:
+    - html
+  additional_dependencies:
+    - html5validator
+    - jinja2
+    - pybars3
+    - six
+  entry: html-validate
+
 ################
 ################
 ## Javascript ##
