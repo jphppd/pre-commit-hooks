@@ -444,6 +444,77 @@
     - perl
   entry: perl-tidy
 
+#########
+#########
+## Php ##
+#########
+#########
+
+- id: php-lint-all
+  name: '[PHP] Syntax Check (Comprehensive)'
+  description: >
+    Check PHP Syntax on ALL PHP staged files with user friendly
+    messages and colors.
+	Origin: https://github.com/digitalpulp/pre-commit-php
+  language: script
+  types:
+    - php
+  entry: hooks/shell/php-lint
+  args:
+    - -s
+    - all
+
+- id: php-lint
+  name: '[PHP] Syntax Check (Quick)'
+  description: >
+    Runs php -l on all staged files. Exits when it hits the first
+    errored file
+	Origin: https://github.com/digitalpulp/pre-commit-php
+  language: system
+  types:
+    - php
+  entry: php -l
+
+- id: php-unit
+  name: '[PHP] Unit'
+  description: >
+    Run the full php unit test. Checks which PHPUnit executable
+    is available first and then runs it. Preference order is
+    vendor/bin, phpunit and phpunit.phar.
+	Origin: https://github.com/digitalpulp/pre-commit-php
+  language: script
+  types:
+    - php
+  entry: hooks/shell/php-unit
+
+- id: php-cs
+  name: '[PHP] Codesniffer'
+  description: >
+    Run php codesniffer against all staged files.
+	Origin: https://github.com/digitalpulp/pre-commit-php
+  language: script
+  types:
+    - php
+  entry: hools/shell/php-cs
+
+- id: php-cbf
+  name: '[PHP] Codesniffer (Code Beutifier and Formatter)'
+  description: >
+    Run php codesniffer against all staged files.
+	Origin: https://github.com/digitalpulp/pre-commit-php
+  language: script
+  types:
+    - php
+  entry: hooks/shell/php-cbf
+
+- id: php-cs-fixer
+  name: '[PHP] Coding Standards Fixer'
+  description: Run php coding standards fixer against all staged files.
+  language: script
+  types:
+    - php
+  entry: hooks/shell/php-cs-fixer
+
 ############
 ############
 ## Puppet ##
