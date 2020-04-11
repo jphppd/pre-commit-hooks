@@ -28,6 +28,7 @@ SCRIPTS = [
     'python-double-quote-string-fixer',
     'python-fix-encoding-pragma',
     'python-requirements-txt-fixer',
+    'python-safety-checks',
     'toml-check-syntax',
     'xml-check-syntax',
     'yaml-check-syntax',

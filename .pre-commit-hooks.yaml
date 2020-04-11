@@ -583,6 +583,17 @@
   files: requirements.*\.txt$
   entry: python-requirements-txt-fixer
 
+- id: python-safetydb
+  name: '[Python] Check requirements.txt safety'
+  description: >
+    Analyze your Python requirements for known security vulnerabilities.
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-safety
+  language: python
+  files: requirements.*\.txt$
+  additional_dependencies:
+    - safety
+  entry: python-safety-checks
+
 - id: python-pyupgrade
   name: '[Python] pyupgrade syntax'
   description: >
@@ -611,7 +622,7 @@
     - '--style={based_on_style: facebook, COLUMN_LIMIT=99}'
 
 - id: python-pylint
-  name: '[Python] pylint'
+  name: '[Python] PyCQA: pylint'
   description: >
     Run pylint
     Origin: https://github.com/PyCQA/pylint
@@ -631,7 +642,7 @@
     - --disable=fixme
 
 - id: python-pydocstyle
-  name: '[Python] pydocstyle'
+  name: '[Python] PyCQA: pydocstyle'
   description: >
     Run pydocstyle
     Origin: https://github.com/PyCQA/pydocstyle
@@ -641,6 +652,18 @@
   additional_dependencies:
     - pydocstyle
   entry: pydocstyle
+
+- id: python-bandit
+  name: '[Python] PyCQA: bandit'
+  description: >
+    Run bandit
+    Origin: https://github.com/PyCQA/bandit
+  language: python
+  types:
+    - python
+  additional_dependencies:
+    - bandit
+  entry: bandit
 
 ##########
 ##########
@@ -813,7 +836,7 @@
 - id: shell-bashate
   name: '[Shell] bashate'
   description: >
-    This hook runs bashate for linting shell scripts
+    This hook runs bashate for linting shell scripts.
     Origin: https://github.com/openstack/bashate
   language: python
   types:
@@ -821,6 +844,18 @@
   additional_dependencies:
     - bashate
   entry: bashate
+
+- id: shell-beautysh
+  name: '[Shell] beautysh'
+  description: >
+    This hook runs beautysh for beautifying shell scripts.
+    Origin: https://github.com/lovesegfault/beautysh
+  language: python
+  types:
+    - shell
+  additional_dependencies:
+    - beautysh
+  entry: beautysh
 
 ##########
 ##########
