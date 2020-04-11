@@ -343,6 +343,78 @@
     - six
   entry: html-validate
 
+- id: html-forbid-img-without-alt-text
+  name: '[html] img tag alt text checker'
+  description: >
+    List every img tag without a alt= or data-ng-attr-alt= attribute
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
+  language: python
+  types:
+    - html
+  additional_dependencies:
+    - lxml
+  entry: html-forbid-img-without-alt-text
+
+- id: html-forbid-non-std-attributes
+  name: '[html] Non-standard html attributes checker'
+  description: >
+    Detect any non-standard attribute that is not prefixed with data-
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
+  language: python
+  types:
+    - html
+  additional_dependencies:
+    - lxml
+  entry: html-forbid-non-std-attributes
+  args:
+    - --extra-known-attributes
+    - content,http-equiv,placeholder,role,style
+
+- id: html-detect-missing-css-classes
+  name: '[html] Missing css classes checker'
+  description: >
+    Detect unused or missing CSS classes definitions,
+    and abort if any of the later ones is found
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
+  language: python
+  types:
+    - css
+    - html
+  additional_dependencies:
+    - lxml
+    - tinycss2
+  entry: html-detect-missing-css-classes
+
+- id: html-tags-blacklist
+  name: '[html] Forbid some html tags'
+  description: >
+    Forbid some html tags
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
+  language: python
+  types:
+    - html
+  additional_dependencies:
+    - lxml
+  entry: html-tags-blacklist
+  args:
+    - --forbidden-tags
+    - basefont,blink,center,font,marquee,s,strike,tt,u
+
+- id: html-attributes-blacklist
+  name: '[html] Forbid some html attributes'
+  description: >
+    Forbid some html attributes
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
+  language: python
+  types:
+    - html
+  additional_dependencies:
+    - lxml
+  entry: html-attributes-blacklist
+  args:
+    - --forbidden-attributes
+    - align,alink,background,basefont,bgcolor,border,color,link,text,vlink
+
 ################
 ################
 ## Javascript ##
