@@ -10,6 +10,5 @@ Gem::Specification.new do |s|
   s.executables = %w[
     puppet-erb-validate
     puppet-r10k-validate
-    puppet-validate
   ]
 end

@@ -6,7 +6,7 @@
 
 # - id: the id of the hook - used in pre-commit-config.yaml.
 # # Description
-#   name: the name of the hook, shown during hook execution.
+#   name: 'the name of the hook, shown during hook execution.'
 #   description: description of the hook. used for metadata purposes only.
 # # Installation
 #   language: the language of the hook, tells pre-commit
@@ -50,7 +50,7 @@
 #########
 
 - id: git-check-mailmap
-  name: Check mailmap
+  name: '[Git] Check mailmap'
   description: >
     Detect if an email address needs to be added to mailmap
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -60,7 +60,7 @@
   entry: git-check-mailmap
 
 - id: git-forbid-binary
-  name: Forbid binaries
+  name: '[Git] Forbid binaries'
   description: >
     Forbid binary files from being committed
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -70,7 +70,7 @@
   entry: Committing binary files is not allowed.
 
 - id: git-check
-  name: Check for conflict markers and core.whitespace errors
+  name: '[Git] Check for conflict markers and core.whitespace errors'
   description: >
     Use git to check for conflict markers and core.whitespace errors,
     respecting .gitattributes
@@ -79,7 +79,7 @@
   entry: hooks/shell/git-check
 
 - id: git-dirty
-  name: Check if the git tree is dirty
+  name: '[Git] Check if the git tree is dirty'
   description: >
     Detect if git tree contains modified, staged, or untracked files
     curtosy: https://github.com/jumanjihouse/pre-commit-hooks
@@ -87,7 +87,7 @@
   entry: hooks/shell/git-dirty
 
 - id: git-check-added-large-files
-  name: Check for added large files
+  name: '[Git] Check for added large files'
   description: >
     Prevent giant files from being committed
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -97,7 +97,7 @@
     - --maxkb=500
 
 - id: git-check-merge-conflict
-  name: Check for merge conflicts
+  name: '[Git] Check for merge conflicts'
   description: >
     Check for files that contain merge conflict strings.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -113,7 +113,7 @@
 #############
 
 - id: generic-check-byte-order-marker
-  name: Check for byte-order marker
+  name: '[Generic] Check for byte-order marker'
   description: >
     Forbid files which have a UTF-8 byte-order marker
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -123,7 +123,7 @@
   entry: generic-check-byte-order-marker
 
 - id: generic-check-case-conflict
-  name: Check for case conflicts
+  name: '[Generic] Check for case conflicts'
   description: >
     Check for files that would conflict in case-insensitive filesystems
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -133,7 +133,7 @@
   entry: generic-check-case-conflict
 
 - id: generic-check-executables-have-shebangs
-  name: Check that executables have shebangs
+  name: '[Generic] Check that executables have shebangs'
   description: >
     Ensures that (non-binary) executables have a shebang.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -144,7 +144,7 @@
   entry: generic-check-executables-have-shebangs
 
 - id: generic-check-symlinks
-  name: Check for broken symlinks
+  name: '[Generic] Check for broken symlinks'
   description: >
     Checks for symlinks which do not point to anything.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -154,7 +154,7 @@
   entry: generic-check-symlinks
 
 - id: generic-check-vcs-permalinks
-  name: Check vcs permalinks
+  name: '[Generic] Check vcs permalinks'
   description: >
     Ensures that links to vcs websites are permalinks.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -164,7 +164,7 @@
   entry: generic-check-vcs-permalinks
 
 - id: generic-detect-private-key
-  name: Detect Private Key
+  name: '[Generic] Detect Private Key'
   description: >
     Detects the presence of private keys
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -174,7 +174,7 @@
   entry: generic-detect-private-key
 
 - id: generic-end-of-file-fixer
-  name: Fix End of Files
+  name: '[Generic] Fix End of Files'
   description: >
     Ensures that a file is either empty, or ends with one newline.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -184,7 +184,7 @@
   entry: generic-end-of-file-fixer
 
 - id: generic-trailing-whitespace
-  name: Trim Trailing Whitespace
+  name: '[Generic] Trim Trailing Whitespace'
   description: >
     This hook trims trailing whitespace.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -194,7 +194,7 @@
   entry: generic-trailing-whitespace-fixer
 
 - id: generic-crlf-forbid
-  name: CRLF end-lines checker
+  name: '[Generic] CRLF end-lines checker'
   description: >
     Forbid files containing CRLF end-lines to be committed
     Origin: https://github.com/Lucas-C/pre-commit-hooks
@@ -204,7 +204,7 @@
   entry: generic-crlf-forbid
 
 - id: generic-crlf-remove
-  name: CRLF end-lines remover
+  name: '[Generic] CRLF end-lines remover'
   description: >
     Replace CRLF end-lines by LF ones before committing
     Origin: https://github.com/Lucas-C/pre-commit-hooks
@@ -214,7 +214,7 @@
   entry: generic-crlf-remove
 
 - id: generic-tabs-forbid
-  name: No-tabs checker
+  name: '[Generic] No-tabs checker'
   description: >
     Forbid files containing tabs to be committed
     Origin: https://github.com/Lucas-C/pre-commit-hooks
@@ -225,7 +225,7 @@
   entry: generic-tabs-forbid
 
 - id: generic-tabs-remove
-  name: Tabs remover
+  name: '[Generic] Tabs remover'
   description: >
     Replace tabs by whitespaces before committing
     Origin: https://github.com/Lucas-C/pre-commit-hooks
@@ -238,7 +238,7 @@
     - --whitespaces-count=4
 
 - id: generic-nbsp-forbid
-  name: Detect nbsp U+00A0
+  name: '[Generic] Detect nbsp U+00A0'
   description: >
     Detect unicode non-breaking space character U+00A0 aka M-BM-
     Origin: https://github.com/Lucas-C/pre-commit-hooks
@@ -248,7 +248,7 @@
   entry: perl -ne 'print if $m = /\xc2\xa0/; $t ||= $m; END{{exit $t}}'
 
 - id: generic-nbsp-remove
-  name: Remove nbsp U+00A0
+  name: '[Generic] Remove nbsp U+00A0'
   description: >
     Remove unicode non-breaking space character U+00A0 aka M-BM-
     Origin: https://github.com/Lucas-C/pre-commit-hooks
@@ -260,7 +260,7 @@
     's/\xc2\xa0/ /g && ($t = 1) && print STDERR $_; END{{exit $t}}'
 
 - id: generic-en-dashes-forbid
-  name: Detect en dashes U+2013
+  name: '[Generic] Detect en dashes U+2013'
   description: >
     Detect the EXTREMELY confusing unicode character U+2013
     Origin: https://github.com/Lucas-C/pre-commit-hooks
@@ -271,7 +271,7 @@
     perl -ne 'print if $m = /\xe2\x80\x93/; $t ||= $m; END{{exit $t}}'
 
 - id: generic-en-dashes-remove
-  name: Remove en dashes U+2013
+  name: '[Generic] Remove en dashes U+2013'
   description: >
     Remove the EXTREMELY confusing unicode character U+2013
     Origin: https://github.com/Lucas-C/pre-commit-hooks
@@ -289,7 +289,7 @@
 #############
 
 - id: ansible-lint
-  name: Ansible-lint
+  name: '[Ansible] Ansible-lint'
   description: >
     This hook runs ansible-lint.
     Origin: https://github.com/ansible/ansible-lint
@@ -309,7 +309,7 @@
 ###########
 
 - id: clang-format
-  name: Run clang-format
+  name: '[C/C++] Run clang-format'
   description: >
     Run clang-format
   language: system
@@ -328,7 +328,7 @@
 ################
 
 - id: js-eslint
-  name: eslint
+  name: '[Javascript] eslint'
   description: >
     Run eslint
   language: node
@@ -339,7 +339,7 @@
     - "eslint"
 
 - id: js-prettier
-  name: prettier
+  name: '[Javascript] prettier'
   description: >
     Run prettier
   language: node
@@ -356,7 +356,7 @@
 ###########
 
 - id: jinja-lint
-  name: jinja-lint
+  name: '[Jinja] Linter'
   description: >
     A linter which checks the indentation and the correctness
     of Jinja-like/HTML templates.
@@ -375,7 +375,7 @@
 ##########
 
 - id: json-check-syntax
-  name: Check JSON
+  name: '[Json] Check JSON'
   description: >
     This hook checks json files for parseable syntax.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -385,7 +385,7 @@
   entry: json-check-syntax
 
 - id: json-pretty-format
-  name: Pretty format JSON
+  name: '[Json] Pretty format JSON'
   description: >
     This hook sets a standard for formatting JSON files.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -404,7 +404,7 @@
 ##############
 
 - id: markdown-lint
-  name: Check markdown files
+  name: '[Markdown] Check markdown files'
   description: >
     Check markdown files and flag style issues
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -425,7 +425,7 @@
 ##########
 
 - id: perl-critic
-  name: perl-critic
+  name: '[Perl] perl-critic'
   description: >
     Runs perlcritic, requires script in path
     Origin: https://github.com/henryykt/pre-commit-perl
@@ -435,7 +435,7 @@
   entry: perl-critic
 
 - id: perl-tidy
-  name: perl-tidy
+  name: '[Perl] perl-tidy'
   description: >
     Runs perltidy, requires script in path
     Origin: https://github.com/henryykt/pre-commit-perl
@@ -451,7 +451,7 @@
 ############
 
 - id: puppet-lint
-  name: puppet-lint
+  name: '[Puppet] puppet-lint'
   description: >
     Check Puppet manifests for stylistic problems
     Origin: http://puppet-lint.com/
@@ -463,17 +463,17 @@
   entry: puppet-lint
 
 - id: puppet-validate
-  name: Validate Puppet manifests
+  name: '[Puppet] Validate Puppet manifests'
   description: >
     Validate syntax of Puppet manifests
     Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
   language: ruby
   types:
     - puppet
-  entry: puppet-validate
+  entry: puppet parser validate --
 
 - id: puppet-erb-validate
-  name: Validate ERB templates
+  name: '[Puppet] Validate ERB templates'
   description: >
     Validate syntax of Puppet ERB templates
     Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
@@ -485,7 +485,7 @@
   entry: puppet-erb-validate
 
 - id: puppet-r10k-validate
-  name: Validate r10k Puppetfile
+  name: '[Puppet] Validate r10k Puppetfile'
   description: >
     Validate syntax of Puppetfile using r10k
     Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
@@ -496,7 +496,7 @@
   entry: puppet-r10k-validate
 
 - id: puppet-epp-validate
-  name: Validate EPP templates
+  name: '[Puppet] Validate EPP templates'
   description: >
     Validate syntax of Puppet EPP templates
     Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
@@ -513,7 +513,7 @@
 ############
 
 - id: python-check-ast
-  name: Check python ast
+  name: '[Python] Check python ast'
   description: >
     Simply check whether files parse as valid python.
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -523,7 +523,7 @@
   entry: python-check-ast
 
 - id: python-check-builtin-literals
-  name: Check builtin type constructor use
+  name: '[Python] Check builtin type constructor use'
   description: >
     Require literal syntax when initializing empty or zero Python builtin types.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -533,7 +533,7 @@
   entry: python-check-builtin-literals
 
 - id: python-check-docstring-first
-  name: Check docstring is first
+  name: '[Python] Check docstring is first'
   description: >
     Checks a common error of defining a docstring after code.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -543,7 +543,7 @@
   entry: python-check-docstring-first
 
 - id: python-debug-statements
-  name: Debug Statements (Python)
+  name: '[Python] Debug Statements (Python)'
   description: >
     Check for debugger imports and py37+ `breakpoint()` calls in python source.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -553,7 +553,7 @@
   entry: python-debug-statement-hook
 
 - id: python-double-quote-string-fixer
-  name: Fix double quoted strings
+  name: '[Python] Fix double quoted strings'
   description: >
     This hook replaces double quoted strings with single quoted strings
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -563,7 +563,7 @@
   entry: python-double-quote-string-fixer
 
 - id: python-fix-encoding-pragma
-  name: Fix python encoding pragma
+  name: '[Python] Fix python encoding pragma'
   description: >
     Remove '# -*- coding: utf-8 -*-' from the top of python files
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -575,7 +575,7 @@
     - --remove
 
 - id: python-requirements-txt-fixer
-  name: Fix requirements.txt
+  name: '[Python] Fix requirements.txt'
   description: >
     Sorts entries in requirements.txt
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -584,7 +584,7 @@
   entry: python-requirements-txt-fixer
 
 - id: python-pyupgrade
-  name: pyupgrade syntax
+  name: '[Python] pyupgrade syntax'
   description: >
     Run pyupgrade
     Origin: https://github.com/asottile/pyupgrade
@@ -596,7 +596,7 @@
   entry: pyupgrade
 
 - id: python-yapf
-  name: yapf formatter
+  name: '[Python] yapf formatter'
   description: >
     Run yapf formatter
     Origin: https://github.com/google/yapf
@@ -611,7 +611,7 @@
     - '--style={based_on_style: facebook, COLUMN_LIMIT=99}'
 
 - id: python-pylint
-  name: pylint
+  name: '[Python] pylint'
   description: >
     Run pylint
     Origin: https://github.com/PyCQA/pylint
@@ -631,7 +631,7 @@
     - --disable=fixme
 
 - id: python-pydocstyle
-  name: pydocstyle
+  name: '[Python] pydocstyle'
   description: >
     Run pydocstyle
     Origin: https://github.com/PyCQA/pydocstyle
@@ -649,7 +649,7 @@
 ##########
 
 - id: ruby-validate
-  name: Validate ruby syntax
+  name: '[Ruby] Validate ruby syntax'
   description: >
     Validate syntax of ruby code
   language: ruby
@@ -658,7 +658,7 @@
   entry: ruby -wc
 
 - id: ruby-bundle-auditer
-  name: Patch-level verification for bundler
+  name: '[Ruby] Patch-level verification for bundler'
   description: >
     Check for vulnerable gem versions and insecure sources
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -671,7 +671,7 @@
     - --update
 
 - id: ruby-fasterer
-  name: Suggest speed improvements in Ruby
+  name: '[Ruby] Suggest speed improvements in Ruby'
   description: >
     Use fasterer to suggest speed improvements in Ruby
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -683,7 +683,7 @@
   entry: fasterer
 
 - id: ruby-reek
-  name: Find ruby code smells
+  name: '[Ruby] Find ruby code smells'
   description: >
     Use reek to find ruby code smells
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -695,7 +695,7 @@
   entry: reek
 
 - id: ruby-rubocop
-  name: Check Ruby style with rubocop and rubocop-rspec
+  name: '[Ruby] Check Ruby style with rubocop and rubocop-rspec'
   description: >
     Enforce Ruby style guide with rubocop and rubocop-rspec
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -714,7 +714,7 @@
 ##########
 
 - id: rust-fmt
-  name: Format rust files
+  name: '[Rust] Format rust files'
   description: >
     Format files with rustfmt.
     Origin: https://github.com/doublify/pre-commit-rust
@@ -724,7 +724,7 @@
   entry: rustfmt --
 
 - id: rust-check
-  name: cargo check
+  name: '[Rust] cargo check'
   description: >
     Check the package for errors.
     Origin: https://github.com/doublify/pre-commit-rust
@@ -735,7 +735,7 @@
   entry: cargo check
 
 - id: rust-clippy
-  name: clippy
+  name: '[Rust] clippy'
   description: >
     Lint rust sources
     Origin: https://github.com/doublify/pre-commit-rust
@@ -752,7 +752,7 @@
 ###########
 
 - id: shell-check-syntax
-  name: Check Shell scripts syntax corectness
+  name: '[Shell] Check Shell scripts syntax corectness'
   description: >
     Check Shell scripts syntax corectness
     Origin: https://github.com/Lucas-C/pre-commit-hooks
@@ -762,7 +762,7 @@
   entry: bash -n
 
 - id: shell-check
-  name: Test shell scripts with shellcheck
+  name: '[Shell] Test shell scripts with shellcheck'
   description: >
     Shell scripts conform to shellcheck
     Origin: https://github.com/jumanjihouse/pre-commit-hooks#shellcheck
@@ -774,7 +774,7 @@
     - --exclude=SC1091
 
 - id: shell-script-must-have-extension
-  name: Non-executable shell files (libs) should have an extension
+  name: '[Shell] Non-executable shell files (libs) should have an extension'
   description: >
     Non-executable shell files (libs) should have an extension
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -785,7 +785,7 @@
   entry: hooks/shell/shell-scripts-must-have-extension
 
 - id: shell-script-must-not-have-extension
-  name: Executable shell files (scripts) shouldn't have an extension
+  name: '[Shell] Executable shell files (scripts) should not have an extension'
   description: >
     Executable shell files (scripts) shouldn't have an extension
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -796,7 +796,7 @@
   entry: hooks/shell/shell-scripts-must-not-have-extension
 
 - id: shell-format
-  name: Check shell style with shfmt
+  name: '[Shell] Check shell style with shfmt'
   description: >
     Check shell style with shfmt
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
@@ -811,7 +811,7 @@
     - -ci
 
 - id: shell-bashate
-  name: bashate
+  name: '[Shell] bashate'
   description: >
     This hook runs bashate for linting shell scripts
     Origin: https://github.com/openstack/bashate
@@ -829,7 +829,7 @@
 ##########
 
 - id: toml-check-syntax
-  name: Check Toml
+  name: '[Toml] Check Toml'
   description: >
     This hook checks toml files for parseable syntax.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -845,7 +845,7 @@
 #########
 
 - id: xml-check-syntax
-  name: Check Xml
+  name: '[Xml] Check Xml'
   description: >
     This hook checks xml files for parseable syntax.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -861,7 +861,7 @@
 ##########
 
 - id: yaml-check-syntax
-  name: Check Yaml
+  name: '[Yaml] Check Yaml'
   description: >
     This hook checks yaml files for parseable syntax.
     Origin: https://github.com/pre-commit/pre-commit-hooks
@@ -873,7 +873,7 @@
   entry: yaml-check-syntax
 
 - id: yaml-yamllint
-  name: Lint yaml
+  name: '[Yaml] Lint yaml'
   description: >
     This hook runs yamllint.
     Origin: https://github.com/adrienverge/yamllint
