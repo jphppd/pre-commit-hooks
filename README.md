@@ -39,6 +39,16 @@ Add to `.pre-commit-config.yaml` in your git repo:
         - id: generic-en-dashes-remove
         - id: ansible-lint
         - id: clang-format
+        - id: dockerfile-lint
+        - id: dockerfile-lint
+        - id: html-validate
+        - id: html-hint
+        - id: html-lint
+        - id: html-forbid-img-without-alt-text
+        - id: html-forbid-non-std-attributes
+        - id: html-detect-missing-css-classes
+        - id: html-tags-blacklist
+        - id: html-attributes-blacklist
         - id: js-eslint
         - id: js-prettier
         - id: jinja-lint
@@ -47,6 +57,12 @@ Add to `.pre-commit-config.yaml` in your git repo:
         - id: markdown-lint
         - id: perl-critic
         - id: perl-tidy
+        - id: php-lint-all
+        - id: php-lint
+        - id: php-unit
+        - id: php-cs
+        - id: php-cbf
+        - id: php-cs-fixer
         - id: puppet-lint
         - id: puppet-validate
         - id: puppet-erb-validate
@@ -59,10 +75,13 @@ Add to `.pre-commit-config.yaml` in your git repo:
         - id: python-double-quote-string-fixer
         - id: python-fix-encoding-pragma
         - id: python-requirements-txt-fixer
+        - id: python-safetydb
         - id: python-pyupgrade
         - id: python-yapf
         - id: python-pylint
         - id: python-pydocstyle
+        - id: python-bandit
+        - id: rst-linter
         - id: ruby-validate
         - id: ruby-bundle-auditer
         - id: ruby-fasterer
@@ -77,6 +96,7 @@ Add to `.pre-commit-config.yaml` in your git repo:
         - id: shell-script-must-not-have-extension
         - id: shell-format
         - id: shell-bashate
+        - id: shell-beautysh
         - id: toml-check-syntax
         - id: xml-check-syntax
         - id: yaml-check-syntax

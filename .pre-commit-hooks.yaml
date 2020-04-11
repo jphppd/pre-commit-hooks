@@ -340,6 +340,21 @@
     - dockerfilelint
   entry: dockerfilelint
 
+- id: dockerfile-lint
+  name: '[docker] Linter'
+  description: >
+    Lint dockerfile
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+  language: node
+  files: Dockerfile.*
+  types:
+    - dockerfile
+  additional_dependencies:
+    - dockerfile_lint
+  entry: dockerfile_lint
+  args:
+    - --dockerfile
+
 ##########
 ##########
 ## Html ##
@@ -361,6 +376,30 @@
     - pybars3
     - six
   entry: html-validate
+
+- id: html-hint
+  name: '[html] NodeJS HTML syntax linter (htmlhint)'
+  description: >
+    NodeJS HTML syntax linter (htmlhint)
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+  language: node
+  types:
+    - html
+  additional_dependencies:
+    - htmlhint
+  entry: htmlhint
+
+- id: html-lint
+  name: '[html] NodeJS HTML syntax linter (htmllint)'
+  description: >
+    NodeJS HTML syntax linter (htmllint)
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+  language: node
+  types:
+    - html
+  additional_dependencies:
+    - htmllint-cli
+  entry: htmllint
 
 - id: html-forbid-img-without-alt-text
   name: '[html] img tag alt text checker'
