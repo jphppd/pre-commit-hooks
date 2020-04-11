@@ -29,6 +29,7 @@ SCRIPTS = [
     'python-fix-encoding-pragma',
     'python-requirements-txt-fixer',
     'python-safety-checks',
+    'rst-linter',
     'toml-check-syntax',
     'xml-check-syntax',
     'yaml-check-syntax',

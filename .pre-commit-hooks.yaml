@@ -736,6 +736,24 @@
     - bandit
   entry: bandit
 
+#########
+#########
+## Rst ##
+#########
+#########
+
+- id: rst-linter
+  name: '[Rst] Linter'
+  description: >
+    Check .rst files with the same linter used by pypi.org
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-markup
+  language: python
+  types:
+    - rst
+  additional_dependencies:
+    - readme_renderer
+  entry: rst-linter
+
 ##########
 ##########
 ## Ruby ##
