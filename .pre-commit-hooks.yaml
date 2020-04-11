@@ -321,6 +321,25 @@
   args:
     - '--style={ColumnLimit: 99}'
 
+############
+############
+## Docker ##
+############
+############
+
+- id: dockerfile-lint
+  name: '[docker] Linter'
+  description: >
+    Lint dockerfile
+    Origin: https://github.com/pryorda/dockerfilelint-precommit-hooks
+  language: node
+  files: Dockerfile.*
+  types:
+    - dockerfile
+  additional_dependencies:
+    - dockerfilelint
+  entry: dockerfilelint
+
 ##########
 ##########
 ## Html ##
@@ -549,7 +568,7 @@
   description: >
     Check PHP Syntax on ALL PHP staged files with user friendly
     messages and colors.
-	Origin: https://github.com/digitalpulp/pre-commit-php
+    Origin: https://github.com/digitalpulp/pre-commit-php
   language: script
   types:
     - php
@@ -563,7 +582,7 @@
   description: >
     Runs php -l on all staged files. Exits when it hits the first
     errored file
-	Origin: https://github.com/digitalpulp/pre-commit-php
+    Origin: https://github.com/digitalpulp/pre-commit-php
   language: system
   types:
     - php
@@ -575,7 +594,7 @@
     Run the full php unit test. Checks which PHPUnit executable
     is available first and then runs it. Preference order is
     vendor/bin, phpunit and phpunit.phar.
-	Origin: https://github.com/digitalpulp/pre-commit-php
+    Origin: https://github.com/digitalpulp/pre-commit-php
   language: script
   types:
     - php
@@ -585,7 +604,7 @@
   name: '[PHP] Codesniffer'
   description: >
     Run php codesniffer against all staged files.
-	Origin: https://github.com/digitalpulp/pre-commit-php
+    Origin: https://github.com/digitalpulp/pre-commit-php
   language: script
   types:
     - php
@@ -595,7 +614,7 @@
   name: '[PHP] Codesniffer (Code Beutifier and Formatter)'
   description: >
     Run php codesniffer against all staged files.
-	Origin: https://github.com/digitalpulp/pre-commit-php
+    Origin: https://github.com/digitalpulp/pre-commit-php
   language: script
   types:
     - php
