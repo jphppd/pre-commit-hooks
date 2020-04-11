@@ -411,9 +411,12 @@
   language: ruby
   types:
     - markdown
-  entry: hooks/ruby/markdown-linter
+  additional_dependencies:
+    - mdl
+  entry: mdl
   args:
-    - --rules ~MD024
+    - --rules
+    - ~MD024
 
 ##########
 ##########
@@ -455,6 +458,8 @@
   language: ruby
   types:
     - puppet
+  additional_dependencies:
+    - puppet-lint
   entry: puppet-lint
 
 - id: puppet-validate
@@ -475,25 +480,9 @@
   language: ruby
   types:
     - erb
+  additional_dependencies:
+    - puppet
   entry: puppet-erb-validate
-
-- id: puppet-epp-validate
-  name: Validate EPP templates
-  description: >
-    Validate syntax of Puppet EPP templates
-    Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
-  language: ruby
-  files: \.epp$
-  entry: puppet-epp-validate
-
-- id: puppet-g10k-validate
-  name: Validate g10k Puppetfile
-  description: >
-    Validate syntax of Puppetfile using g10k
-    Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
-  files: ^Puppetfile$
-  language: ruby
-  entry: puppet-g10k-validate
 
 - id: puppet-r10k-validate
   name: Validate r10k Puppetfile
@@ -502,9 +491,20 @@
     Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
   language: ruby
   files: ^Puppetfile$
-  entry: puppet-r10k-validate
   additional_dependencies:
     - r10k
+  entry: puppet-r10k-validate
+
+- id: puppet-epp-validate
+  name: Validate EPP templates
+  description: >
+    Validate syntax of Puppet EPP templates
+    Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
+  language: ruby
+  files: \.epp$
+  additional_dependencies:
+    - puppet
+  entry: puppet epp validate
 
 ############
 ############
@@ -648,6 +648,15 @@
 ##########
 ##########
 
+- id: ruby-validate
+  name: Validate ruby syntax
+  description: >
+    Validate syntax of ruby code
+  language: ruby
+  types:
+    - ruby
+  entry: ruby -wc
+
 - id: ruby-bundle-auditer
   name: Patch-level verification for bundler
   description: >
@@ -655,7 +664,9 @@
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
   language: ruby
   files: Gemfile.lock
-  entry: ruby-bundle-auditer
+  additional_dependencies:
+    - bundler-audit
+  entry: bundle-audit check
   args:
     - --update
 
@@ -667,7 +678,9 @@
   language: ruby
   types:
     - ruby
-  entry: ruby-fasterer
+  additional_dependencies:
+    - fasterer
+  entry: fasterer
 
 - id: ruby-reek
   name: Find ruby code smells
@@ -677,7 +690,9 @@
   language: ruby
   types:
     - ruby
-  entry: ruby-reek
+  additional_dependencies:
+    - reek
+  entry: reek
 
 - id: ruby-rubocop
   name: Check Ruby style with rubocop and rubocop-rspec
@@ -687,16 +702,10 @@
   language: ruby
   types:
     - ruby
-  entry: ruby-rubocop
-
-- id: ruby-validate
-  name: Validate ruby syntax
-  description: >
-    Validate syntax of ruby code
-  language: ruby
-  types:
-    - ruby
-  entry: ruby-validate
+  additional_dependencies:
+    - rubocop
+    - rubocop-rspec
+  entry: rubocop
 
 ##########
 ##########

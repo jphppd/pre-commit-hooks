@@ -4,8 +4,8 @@ Git hooks to integrate with [pre-commit](http://pre-commit.com).
 
 ## Table of contents
 
-- [Configure pre-commit](#configure-pre-commit)
-- [Two ways to invoke pre-commit](#two-ways-to-invoke-pre-commit)
+* [Configure pre-commit](#configure-pre-commit)
+* [Two ways to invoke pre-commit](#two-ways-to-invoke-pre-commit)
 
 ## Configure pre-commit
 
