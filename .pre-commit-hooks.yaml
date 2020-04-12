@@ -1112,6 +1112,8 @@
   language: python
   types:
     - toml
+  additional_dependencies:
+    - toml
   entry: toml-check-syntax
 
 #########
