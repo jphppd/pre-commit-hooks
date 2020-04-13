@@ -1007,7 +1007,7 @@
   pass_filenames: false
   types:
     - rust
-  entry: cargo clippy -- -D warnings
+  entry: cargo clippy --all-targets --all -- -D warnings
 
 ###########
 ###########

@@ -22,7 +22,7 @@ import sys
 def get_git_mail_map():
     """Construct mail mapping, as dict {email: [names]}."""
     separator = '::-::'
-    mail_map = defaultdict(list)
+    mail_map = defaultdict(set)
 
     for line in check_output(
         ['git', 'log', '--use-mailmap', '--pretty=%aN{}%aE'.format(separator)],
@@ -31,7 +31,7 @@ def get_git_mail_map():
         if line:
             name, email = line.split(separator)
             email = email.lower()
-            mail_map[email].append(name)
+            mail_map[email] |= {name}
 
     return mail_map
 
@@ -44,7 +44,9 @@ def main():
             exit_val = 1
             print('The following email address is associated with more than one name:')
             print(email)
-            print('- ' + '\n- '.join(names) + '\n')
+            print('- ' + '\n- '.join(sorted(names)) + '\n')
+            print('Please create and fill .mailmap file.')
+            print('See https://git-scm.com/docs/git-check-mailmap for details.')
 
     return exit_val
 
