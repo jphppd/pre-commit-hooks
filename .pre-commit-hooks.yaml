@@ -1059,21 +1059,6 @@
     - executable
   entry: hooks/shell/shell-scripts-must-not-have-extension
 
-- id: shell-format
-  name: '[Shell] Check shell style with shfmt'
-  description: >
-    Check shell style with shfmt
-    Origin: https://github.com/jumanjihouse/pre-commit-hooks
-  language: script
-  entry: hooks/shell/shell-shfmt
-  types:
-    - shell
-  args:
-    - -l
-    - -i
-    - '4'
-    - -ci
-
 - id: shell-bashate
   name: '[Shell] bashate'
   description: >
@@ -1097,6 +1082,8 @@
   additional_dependencies:
     - beautysh
   entry: beautysh
+  args:
+    - --indent-size 2
 
 ##########
 ##########
