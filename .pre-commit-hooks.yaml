@@ -308,6 +308,16 @@
 ###########
 ###########
 
+- id: clang-format-c-clang-format
+  name: '[C] Demand .clang-format'
+  description: >
+    Demand the presence of .clang-format configuration file
+  language: system
+  types:
+    - c
+  entry: test -f .clang-format
+  pass_filenames: false
+
 - id: clang-format-c
   name: '[C] Run clang-format'
   description: >
@@ -320,6 +330,16 @@
     - -style=file
     - -i
 
+- id: clang-format-cpp-clang-format
+  name: '[C++] Demand .clang-format'
+  description: >
+    Demand the presence of .clang-format configuration file
+  language: system
+  types:
+    - c++
+  entry: test -f .clang-format
+  pass_filenames: false
+
 - id: clang-format-cpp
   name: '[C++] Run clang-format'
   description: >
@@ -331,6 +351,16 @@
   args:
     - -style=file
     - -i
+
+- id: clang-format-header-clang-format
+  name: '[Header] Demand .clang-format'
+  description: >
+    Demand the presence of .clang-format configuration file
+  language: system
+  types:
+    - header
+  entry: test -f .clang-format
+  pass_filenames: false
 
 - id: clang-format-header
   name: '[Header] Run clang-format'
@@ -374,9 +404,7 @@
     - dockerfile
   additional_dependencies:
     - dockerfile_lint
-  entry: dockerfile_lint
-  args:
-    - --dockerfile
+  entry: dockerfile_lint --dockerfile
 
 ##########
 ##########
@@ -580,9 +608,8 @@
   language: python
   types:
     - json
-  entry: json-pretty-format
+  entry: json-pretty-format --autofix
   args:
-    - --autofix
     - --indent=2
 
 ##############
@@ -829,9 +856,7 @@
   language: python
   types:
     - python
-  entry: python-fix-encoding-pragma
-  args:
-    - --remove
+  entry: python-fix-encoding-pragma --remove
 
 - id: python-requirements-txt-fixer
   name: '[Python] Fix requirements.txt'
@@ -880,6 +905,16 @@
     - --in-place
     - '--style={based_on_style: facebook, COLUMN_LIMIT=99}'
 
+- id: python-pylint-config
+  name: '[Python] PyCQA: demand pylint config'
+  description: >
+    Demand the presence of .pylintrc configuration file
+  language: system
+  types:
+    - python
+  entry: test -f .pylintrc
+  pass_filenames: false
+
 - id: python-pylint
   name: '[Python] PyCQA: pylint'
   description: >
@@ -891,14 +926,6 @@
   additional_dependencies:
     - pylint
   entry: pylint
-  args:
-    - --max-line-length=99
-    - --enable=all
-    - --disable=locally-disabled
-    - --disable=suppressed-message
-    - --disable=import-error
-    - --disable=bad-continuation
-    - --disable=fixme
 
 - id: python-pydocstyle
   name: '[Python] PyCQA: pydocstyle'
@@ -1171,7 +1198,7 @@
     - yaml
   additional_dependencies:
     - ruamel.yaml
-  entry: yaml-check-syntax
+  entry: yaml-check-syntax --unsafe
 
 - id: yaml-yamllint
   name: '[Yaml] Lint yaml'
