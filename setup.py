@@ -7,6 +7,7 @@ SCRIPTS = [
     'git-check-mailmap',
     'git-check-added-large-files',
     'git-check-merge-conflict',
+    'git-commit-msg',
     'generic-check-byte-order-marker',
     'generic-check-case-conflict',
     'generic-check-executables-have-shebangs',

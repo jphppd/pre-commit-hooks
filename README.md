@@ -30,6 +30,7 @@ repos:
       - id: git-dirty
       - id: git-check-added-large-files
       - id: git-check-merge-conflict
+      - id: git-commit-msg
       - id: generic-check-byte-order-marker
       - id: generic-check-case-conflict
       - id: generic-check-executables-have-shebangs

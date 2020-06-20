@@ -106,6 +106,16 @@
     - text
   entry: git-check-merge-conflict
 
+- id: git-commit-msg
+  name: '[Git] Check the commit message formatting (prefix)'
+  description: >
+    Make sure the commit messages matches the format.
+  language: python
+  always_run: true
+  entry: git-commit-msg
+  stages:
+    - commit-msg
+
 #############
 #############
 ## Generic ##
