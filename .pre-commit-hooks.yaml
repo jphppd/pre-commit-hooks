@@ -219,7 +219,7 @@
     Forbid files containing tabs to be committed
     Origin: https://github.com/Lucas-C/pre-commit-hooks
   language: python
-  exclude: (Makefile|debian/rules)(\.in)?$
+  exclude: (.*Makefile.*|debian/rules(\.in)?)
   types:
     - text
   entry: generic-tabs-forbid
@@ -230,7 +230,7 @@
     Replace tabs by whitespaces before committing
     Origin: https://github.com/Lucas-C/pre-commit-hooks
   language: python
-  exclude: (Makefile|debian/rules)(\.in)?$
+  exclude: (.*Makefile.*|debian/rules(\.in)?)
   types:
     - text
   entry: generic-tabs-remove
@@ -356,7 +356,7 @@
     Lint dockerfile
     Origin: https://github.com/pryorda/dockerfilelint-precommit-hooks
   language: node
-  files: Dockerfile.*
+  files: .*Dockerfile.*
   types:
     - dockerfile
   additional_dependencies:
@@ -369,7 +369,7 @@
     Lint dockerfile
     Origin: https://github.com/Lucas-C/pre-commit-hooks-nodejs
   language: node
-  files: Dockerfile.*
+  files: .*Dockerfile.*
   types:
     - dockerfile
   additional_dependencies:
