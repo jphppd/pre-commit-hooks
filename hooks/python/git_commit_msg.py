@@ -12,18 +12,16 @@ from pathlib import Path
 import re
 import sys
 
-COMMIT_RE = r'\[\+?\*?-?~?^?\]'
+COMMIT_RE = re.compile(r'\[\+?\*?-?~?\^?\]')
 
 
 def main():
     """Inspect the commit message."""
 
-    commit_re = re.compile(COMMIT_RE)
-
     with Path(sys.argv[1]).open() as commit_msg_fh:
         commit_msg = commit_msg_fh.read().strip()
 
-    if bool(commit_re.match(commit_msg)):
+    if bool(COMMIT_RE.match(commit_msg)):
         return 0
 
     print(

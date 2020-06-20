@@ -900,6 +900,22 @@
     - pyupgrade
   entry: pyupgrade
 
+- id: python-black
+  name: '[Python] black formatter'
+  description: >
+    Run Black formatter
+    Origin: https://github.com/psf/black
+  language: python
+  types:
+    - python
+  additional_dependencies:
+    - black
+  require_serial: true
+  entry: black
+  args:
+    - --line-length=100
+    - --skip-string-normalization
+
 - id: python-yapf
   name: '[Python] yapf formatter'
   description: >
@@ -959,7 +975,7 @@
     - python
   additional_dependencies:
     - bandit
-  entry: bandit
+  entry: bandit --skip=B404,B602,B603,B605,B606
 
 #########
 #########
