@@ -94,7 +94,6 @@ Add to `.pre-commit-config.yaml` in your git repo:
         - id: shell-check
         - id: shell-script-must-have-extension
         - id: shell-script-must-not-have-extension
-        - id: shell-format
         - id: shell-bashate
         - id: shell-beautysh
         - id: toml-check-syntax

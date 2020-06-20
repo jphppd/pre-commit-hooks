@@ -308,18 +308,41 @@
 ###########
 ###########
 
-- id: clang-format
-  name: '[C/C++] Run clang-format'
+- id: clang-format-c
+  name: '[C] Run clang-format'
   description: >
     Run clang-format
   language: system
   types:
     - c
-    - c++
-    - header
-  entry: clang-format -i
+  entry: clang-format
   args:
-    - '--style={ColumnLimit: 99}'
+    - -style=file
+    - -i
+
+- id: clang-format-cpp
+  name: '[C++] Run clang-format'
+  description: >
+    Run clang-format
+  language: system
+  types:
+    - c++
+  entry: clang-format
+  args:
+    - -style=file
+    - -i
+
+- id: clang-format-header
+  name: '[Header] Run clang-format'
+  description: >
+    Run clang-format
+  language: system
+  types:
+    - header
+  entry: clang-format
+  args:
+    - -style=file
+    - -i
 
 ############
 ############
@@ -428,7 +451,7 @@
     - --extra-known-attributes
     - content,http-equiv,placeholder,role,style
 
-- id: html-detect-missing-css-classes
+- id: html-detect-missing-css-classes-html
   name: '[html] Missing css classes checker'
   description: >
     Detect unused or missing CSS classes definitions,
@@ -436,8 +459,21 @@
     Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
   language: python
   types:
-    - css
     - html
+  additional_dependencies:
+    - lxml
+    - tinycss2
+  entry: html-detect-missing-css-classes
+
+- id: html-detect-missing-css-classes-css
+  name: '[css] Missing css classes checker'
+  description: >
+    Detect unused or missing CSS classes definitions,
+    and abort if any of the later ones is found
+    Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
+  language: python
+  types:
+    - css
   additional_dependencies:
     - lxml
     - tinycss2
