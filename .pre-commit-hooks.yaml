@@ -318,7 +318,32 @@
 ###########
 ###########
 
-- id: clang-format-c-clang-format
+- id: c-cpp-cmake-format
+  name: '[CMake] cmake-format'
+  description: >
+      cmake-format can format your listfiles nicely
+  language: python
+  types:
+    - cmake
+  additional_dependencies:
+    - cmake-format
+  entry: cmake-format
+  args:
+    - --in-place
+
+- id: c-cpp-cmake-lint
+  name: '[Cmake] cmake-lint'
+  description: >
+      cmake-lint will check your listfiles for style violations,
+      common mistakes, and anti-patterns.
+  language: python
+  types:
+    - cmake
+  additional_dependencies:
+    - cmake-format
+  entry: cmake-lint
+
+- id: c-cpp-clang-format-c-config
   name: '[C] Demand .clang-format'
   description: >
     Demand the presence of .clang-format configuration file
@@ -328,7 +353,7 @@
   entry: test -f .clang-format
   pass_filenames: false
 
-- id: clang-format-c
+- id: c-cpp-clang-format-c
   name: '[C] Run clang-format'
   description: >
     Run clang-format
@@ -340,7 +365,7 @@
     - -style=file
     - -i
 
-- id: clang-format-cpp-clang-format
+- id: c-cpp-clang-format-cpp-config
   name: '[C++] Demand .clang-format'
   description: >
     Demand the presence of .clang-format configuration file
@@ -350,7 +375,7 @@
   entry: test -f .clang-format
   pass_filenames: false
 
-- id: clang-format-cpp
+- id: c-cpp-clang-format-cpp
   name: '[C++] Run clang-format'
   description: >
     Run clang-format
@@ -362,7 +387,7 @@
     - -style=file
     - -i
 
-- id: clang-format-header-clang-format
+- id: c-cpp-clang-format-header-config
   name: '[Header] Demand .clang-format'
   description: >
     Demand the presence of .clang-format configuration file
@@ -372,7 +397,7 @@
   entry: test -f .clang-format
   pass_filenames: false
 
-- id: clang-format-header
+- id: c-cpp-clang-format-header
   name: '[Header] Run clang-format'
   description: >
     Run clang-format

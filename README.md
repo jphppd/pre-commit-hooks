@@ -48,12 +48,14 @@ repos:
       - id: generic-en-dashes-forbid
       - id: generic-en-dashes-remove
       - id: ansible-lint
-      - id: clang-format-c-clang-format
-      - id: clang-format-c
-      - id: clang-format-cpp-clang-format
-      - id: clang-format-cpp
-      - id: clang-format-header-clang-format
-      - id: clang-format-header
+      - id: c-cpp-cmake-format
+      - id: c-cpp-cmake-lint
+      - id: c-cpp-clang-format-c-config
+      - id: c-cpp-clang-format-c
+      - id: c-cpp-clang-format-cpp-config
+      - id: c-cpp-clang-format-cpp
+      - id: c-cpp-clang-format-header-config
+      - id: c-cpp-clang-format-header
       - id: dockerfile-lint
       - id: dockerfile-lint
       - id: html-validate
@@ -93,6 +95,7 @@ repos:
       - id: python-requirements-txt-fixer
       - id: python-safetydb
       - id: python-pyupgrade
+      - id: python-black
       - id: python-yapf
       - id: python-pylint-config
       - id: python-pylint
