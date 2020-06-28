@@ -54,8 +54,8 @@ repos:
       - id: c-cpp-clang-format-c
       - id: c-cpp-clang-format-cpp
       - id: c-cpp-clang-format-header
-      - id: dockerfile-lint
-      - id: dockerfile-lint
+      - id: dockerfile-lint-1
+      - id: dockerfile-lint-2
       - id: html-validate
       - id: html-hint
       - id: html-lint
