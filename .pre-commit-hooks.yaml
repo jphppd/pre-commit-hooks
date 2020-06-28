@@ -307,11 +307,11 @@
   language: python
   additional_dependencies:
     - ansible-lint
+  always_run: true
+  entry: ansible-lint --force-color .
   # do not pass files to ansible-lint, see:
   # https://github.com/ansible/ansible-lint/issues/611
   pass_filenames: false
-  always_run: true
-  entry: ansible-lint --force-color .
 
 ###########
 ###########
@@ -1109,6 +1109,64 @@
 ##########
 ##########
 
+- id: rust-outdated
+  name: '[Rust] Check for outdated deps'
+  description: >
+    Run cargo-outdated
+  language: rust
+  additional_dependencies:
+    - cargo-outdated
+  types:
+    - rust
+  entry: cargo outdated --root-deps-only --exit-code=1
+  pass_filenames: false
+
+- id: rust-audit
+  name: '[Rust] Check for dangerous deps'
+  description: >
+    Run cargo-audit
+  language: rust
+  additional_dependencies:
+    - cargo-audit
+  types:
+    - rust
+  entry: cargo audit
+  pass_filenames: false
+
+- id: rust-check
+  name: '[Rust] Check syntax errors'
+  description: >
+    Check the package for errors.
+    Origin: https://github.com/doublify/pre-commit-rust
+  language: system
+  types:
+    - rust
+  entry: cargo check
+  pass_filenames: false
+
+- id: rust-clippy
+  name: '[Rust] Lint code with clippy'
+  description: >
+    Lint rust sources
+    Origin: https://github.com/doublify/pre-commit-rust
+  language: system
+  types:
+    - rust
+  entry: cargo clippy --all-targets --all -- -D warnings
+  pass_filenames: false
+
+- id: rust-fix
+  name: '[Rust] Fix compiler hints'
+  description: >
+    Run cargo-fix
+  language: rust
+  additional_dependencies:
+    - cargo-fix
+  types:
+    - rust
+  entry: cargo fix --allow-dirty --allow-staged
+  pass_filenames: false
+
 - id: rust-fmt
   name: '[Rust] Format files'
   description: >
@@ -1118,28 +1176,6 @@
   types:
     - rust
   entry: rustfmt --
-
-- id: rust-check
-  name: '[Rust] Check errors'
-  description: >
-    Check the package for errors.
-    Origin: https://github.com/doublify/pre-commit-rust
-  language: system
-  pass_filenames: false
-  types:
-    - rust
-  entry: cargo check
-
-- id: rust-clippy
-  name: '[Rust] Run clippy'
-  description: >
-    Lint rust sources
-    Origin: https://github.com/doublify/pre-commit-rust
-  language: system
-  pass_filenames: false
-  types:
-    - rust
-  entry: cargo clippy --all-targets --all -- -D warnings
 
 ###########
 ###########

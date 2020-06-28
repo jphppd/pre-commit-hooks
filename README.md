@@ -108,9 +108,12 @@ repos:
       - id: ruby-fasterer
       - id: ruby-reek
       - id: ruby-rubocop
-      - id: rust-fmt
+      - id: rust-outdated
+      - id: rust-audit
       - id: rust-check
       - id: rust-clippy
+      - id: rust-fix
+      - id: rust-fmt
       - id: shell-check-syntax
       - id: shell-check
       - id: shell-script-must-have-extension
