@@ -925,6 +925,46 @@
     - pyupgrade
   entry: pyupgrade
 
+- id: python-isort-config
+  name: '[Python] Isort: demand config'
+  description: >
+    Demand the presence of .isort.cfg configuration file
+  language: system
+  types:
+    - python
+  entry: test -f .isort.cfg
+  pass_filenames: false
+
+- id: python-isort-seed-config
+  name: '[Python] Seed isort known_third_party'
+  description: >
+    Statically populate the known_third_party isort setting
+    Origin: https://github.com/asottile/seed-isort-config
+  language: python
+  additional_dependencies:
+    - seed-isort-config
+  entry: seed-isort-config
+  pass_filenames: false
+
+- id: python-isort
+  name: '[Python] isort formatter, black-compatible'
+  description: >
+    Run isort formatter with black-compatible configuration
+    Origin: https://github.com/timothycrosley/isort
+  language: python
+  types:
+    - python
+  additional_dependencies:
+    - isort
+  require_serial: true
+  entry: isort
+  args:
+    - --multi-line=3
+    - --trailing-comma
+    - --force-grid-wrap=0
+    - --use-parentheses
+    - --line-width=100
+
 - id: python-black
   name: '[Python] black formatter'
   description: >
@@ -940,21 +980,6 @@
   args:
     - --line-length=100
     - --skip-string-normalization
-
-- id: python-yapf
-  name: '[Python] yapf formatter'
-  description: >
-    Run yapf formatter
-    Origin: https://github.com/google/yapf
-  language: python
-  types:
-    - python
-  additional_dependencies:
-    - yapf
-  entry: yapf
-  args:
-    - --in-place
-    - '--style={based_on_style: facebook, COLUMN_LIMIT=99}'
 
 - id: python-pylint-config
   name: '[Python] PyCQA: demand pylint config'
@@ -1001,6 +1026,17 @@
   additional_dependencies:
     - bandit
   entry: bandit --skip=B404,B602,B603,B605,B606
+
+- id: python-setup-cfg-fmt
+  name: '[Python] setup-cfg-fmt'
+  description: >
+    Apply a consistent format to `setup.cfg` files
+    Origin: https://github.com/asottile/setup-cfg-fmt
+  language: python
+  files: '(^|/)setup\.cfg$'
+  additional_dependencies:
+    - setup-cfg-fmt
+  entry: setup-cfg-fmt
 
 #########
 #########

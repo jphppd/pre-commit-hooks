@@ -95,12 +95,15 @@ repos:
       - id: python-requirements-txt-fixer
       - id: python-safetydb
       - id: python-pyupgrade
+      - id: python-isort-config
+      - id: python-isort-seed-config
+      - id: python-isort
       - id: python-black
-      - id: python-yapf
       - id: python-pylint-config
       - id: python-pylint
       - id: python-pydocstyle
       - id: python-bandit
+      - id: python-setup-cfg-fmt
       - id: rst-linter
       - id: ruby-validate
       - id: ruby-bundle-auditer
