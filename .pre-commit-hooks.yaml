@@ -34,6 +34,7 @@
 #   name:
 #   description:
 #   language:
+#   additional_dependencies:
 #   files:
 #   exclude:
 #   types:
@@ -304,12 +305,12 @@
     This hook runs ansible-lint.
     Origin: https://github.com/ansible/ansible-lint
   language: python
+  additional_dependencies:
+    - ansible-lint
   # do not pass files to ansible-lint, see:
   # https://github.com/ansible/ansible-lint/issues/611
   pass_filenames: false
   always_run: true
-  additional_dependencies:
-    - ansible-lint
   entry: ansible-lint --force-color .
 
 ###########
@@ -323,10 +324,10 @@
   description: >
       cmake-format can format your listfiles nicely
   language: python
-  types:
-    - cmake
   additional_dependencies:
     - cmake-format
+  types:
+    - cmake
   entry: cmake-format
   args:
     - --in-place
@@ -337,20 +338,19 @@
       cmake-lint will check your listfiles for style violations,
       common mistakes, and anti-patterns.
   language: python
-  types:
-    - cmake
   additional_dependencies:
     - cmake-format
+  types:
+    - cmake
   entry: cmake-lint
 
 - id: c-cpp-clang-format-c-config
-  name: '[C] Demand .clang-format'
+  name: '[C-C++-Header] Demand .clang-format'
   description: >
     Demand the presence of .clang-format configuration file
-  language: system
-  types:
-    - c
-  entry: test -f .clang-format
+  language: python
+  always_run: true
+  entry: c-create-clang-format-cfg
   pass_filenames: false
 
 - id: c-cpp-clang-format-c
@@ -365,16 +365,6 @@
     - -style=file
     - -i
 
-- id: c-cpp-clang-format-cpp-config
-  name: '[C++] Demand .clang-format'
-  description: >
-    Demand the presence of .clang-format configuration file
-  language: system
-  types:
-    - c++
-  entry: test -f .clang-format
-  pass_filenames: false
-
 - id: c-cpp-clang-format-cpp
   name: '[C++] Run clang-format'
   description: >
@@ -386,16 +376,6 @@
   args:
     - -style=file
     - -i
-
-- id: c-cpp-clang-format-header-config
-  name: '[Header] Demand .clang-format'
-  description: >
-    Demand the presence of .clang-format configuration file
-  language: system
-  types:
-    - header
-  entry: test -f .clang-format
-  pass_filenames: false
 
 - id: c-cpp-clang-format-header
   name: '[Header] Run clang-format'
@@ -421,11 +401,11 @@
     Lint dockerfile
     Origin: https://github.com/pryorda/dockerfilelint-precommit-hooks
   language: node
+  additional_dependencies:
+    - dockerfilelint
   files: .*Dockerfile.*
   types:
     - dockerfile
-  additional_dependencies:
-    - dockerfilelint
   entry: dockerfilelint
 
 - id: dockerfile-lint
@@ -434,11 +414,11 @@
     Lint dockerfile
     Origin: https://github.com/Lucas-C/pre-commit-hooks-nodejs
   language: node
+  additional_dependencies:
+    - dockerfile_lint
   files: .*Dockerfile.*
   types:
     - dockerfile
-  additional_dependencies:
-    - dockerfile_lint
   entry: dockerfile_lint --dockerfile
 
 ##########
@@ -454,13 +434,13 @@
     with support for handlebars/jinja2 templates
     Origin: https://github.com/Lucas-C/pre-commit-hooks-java
   language: python
-  types:
-    - html
   additional_dependencies:
     - html5validator
     - jinja2
     - pybars3
     - six
+  types:
+    - html
   entry: html-validate
 
 - id: html-hint
@@ -469,10 +449,10 @@
     NodeJS HTML syntax linter (htmlhint)
     Origin: https://github.com/Lucas-C/pre-commit-hooks-nodejs
   language: node
-  types:
-    - html
   additional_dependencies:
     - htmlhint
+  types:
+    - html
   entry: htmlhint
 
 - id: html-lint
@@ -481,10 +461,10 @@
     NodeJS HTML syntax linter (htmllint)
     Origin: https://github.com/Lucas-C/pre-commit-hooks-nodejs
   language: node
-  types:
-    - html
   additional_dependencies:
     - htmllint-cli
+  types:
+    - html
   entry: htmllint
 
 - id: html-forbid-img-without-alt-text
@@ -493,10 +473,10 @@
     List every img tag without a alt= or data-ng-attr-alt= attribute
     Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
   language: python
-  types:
-    - html
   additional_dependencies:
     - lxml
+  types:
+    - html
   entry: html-forbid-img-without-alt-text
 
 - id: html-forbid-non-std-attributes
@@ -505,10 +485,10 @@
     Detect any non-standard attribute that is not prefixed with data-
     Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
   language: python
-  types:
-    - html
   additional_dependencies:
     - lxml
+  types:
+    - html
   entry: html-forbid-non-std-attributes
   args:
     - --extra-known-attributes
@@ -521,11 +501,11 @@
     and abort if any of the later ones is found
     Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
   language: python
-  types:
-    - html
   additional_dependencies:
     - lxml
     - tinycss2
+  types:
+    - html
   entry: html-detect-missing-css-classes
 
 - id: html-detect-missing-css-classes-css
@@ -535,11 +515,11 @@
     and abort if any of the later ones is found
     Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
   language: python
-  types:
-    - css
   additional_dependencies:
     - lxml
     - tinycss2
+  types:
+    - css
   entry: html-detect-missing-css-classes
 
 - id: html-tags-blacklist
@@ -548,10 +528,10 @@
     Forbid some html tags
     Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
   language: python
-  types:
-    - html
   additional_dependencies:
     - lxml
+  types:
+    - html
   entry: html-tags-blacklist
   args:
     - --forbidden-tags
@@ -563,10 +543,10 @@
     Forbid some html attributes
     Origin: https://github.com/Lucas-C/pre-commit-hooks-lxml
   language: python
-  types:
-    - html
   additional_dependencies:
     - lxml
+  types:
+    - html
   entry: html-attributes-blacklist
   args:
     - --forbidden-attributes
@@ -583,22 +563,22 @@
   description: >
     Run eslint
   language: node
+  additional_dependencies:
+    - eslint
   types:
     - javascript
   entry: eslint
-  additional_dependencies:
-    - "eslint"
 
 - id: js-prettier
   name: '[Javascript] prettier'
   description: >
     Run prettier
   language: node
+  additional_dependencies:
+    - prettier
   types:
     - javascript
   entry: prettier
-  additional_dependencies:
-    - "prettier"
 
 ###########
 ###########
@@ -613,10 +593,10 @@
     of Jinja-like/HTML templates.
     Origin: https://github.com/motet-a/jinjalint
   language: python
-  types:
-    - jinja
   additional_dependencies:
     - jinjalint
+  types:
+    - jinja
   entry: jinjalint
 
 ##########
@@ -659,10 +639,10 @@
     Check markdown files and flag style issues
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
   language: ruby
-  types:
-    - markdown
   additional_dependencies:
     - mdl
+  types:
+    - markdown
   entry: mdl
   args:
     - --rules
@@ -777,10 +757,10 @@
     Check Puppet manifests for stylistic problems
     Origin: http://puppet-lint.com/
   language: ruby
-  types:
-    - puppet
   additional_dependencies:
     - puppet-lint
+  types:
+    - puppet
   entry: puppet-lint
 
 - id: puppet-validate
@@ -799,10 +779,10 @@
     Validate syntax of Puppet ERB templates
     Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
   language: ruby
-  types:
-    - erb
   additional_dependencies:
     - puppet
+  types:
+    - erb
   entry: puppet-erb-validate
 
 - id: puppet-r10k-validate
@@ -811,9 +791,9 @@
     Validate syntax of Puppetfile using r10k
     Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
   language: ruby
-  files: ^Puppetfile$
   additional_dependencies:
     - r10k
+  files: ^Puppetfile$
   entry: puppet-r10k-validate
 
 - id: puppet-epp-validate
@@ -822,9 +802,9 @@
     Validate syntax of Puppet EPP templates
     Origin: https://github.com/chriskuehl/puppet-pre-commit-hooks
   language: ruby
-  files: \.epp$
   additional_dependencies:
     - puppet
+  files: \.epp$
   entry: puppet epp validate
 
 ############
@@ -908,9 +888,9 @@
     Analyze your Python requirements for known security vulnerabilities.
     Origin: https://github.com/Lucas-C/pre-commit-hooks-safety
   language: python
-  files: requirements.*\.txt$
   additional_dependencies:
     - safety
+  files: requirements.*\.txt$
   entry: python-safety-checks
 
 - id: python-pyupgrade
@@ -919,20 +899,21 @@
     Run pyupgrade
     Origin: https://github.com/asottile/pyupgrade
   language: python
-  types:
-    - python
   additional_dependencies:
     - pyupgrade
+  types:
+    - python
   entry: pyupgrade
 
 - id: python-isort-config
   name: '[Python] Isort: demand config'
   description: >
     Demand the presence of .isort.cfg configuration file
-  language: system
+  language: python
   types:
     - python
-  entry: test -f .isort.cfg
+  always_run: true
+  entry: python-isort-config
   pass_filenames: false
 
 - id: python-isort-seed-config
@@ -952,10 +933,10 @@
     Run isort formatter with black-compatible configuration
     Origin: https://github.com/timothycrosley/isort
   language: python
-  types:
-    - python
   additional_dependencies:
     - isort
+  types:
+    - python
   require_serial: true
   entry: isort
   args:
@@ -971,10 +952,10 @@
     Run Black formatter
     Origin: https://github.com/psf/black
   language: python
-  types:
-    - python
   additional_dependencies:
     - black
+  types:
+    - python
   require_serial: true
   entry: black
   args:
@@ -985,10 +966,11 @@
   name: '[Python] PyCQA: demand pylint config'
   description: >
     Demand the presence of .pylintrc configuration file
-  language: system
+  language: python
   types:
     - python
-  entry: test -f .pylintrc
+  always_run: true
+  entry: python-pylint-config
   pass_filenames: false
 
 - id: python-pylint
@@ -997,10 +979,10 @@
     Run pylint
     Origin: https://github.com/PyCQA/pylint
   language: python
-  types:
-    - python
   additional_dependencies:
     - pylint
+  types:
+    - python
   entry: pylint
 
 - id: python-pydocstyle
@@ -1009,10 +991,10 @@
     Run pydocstyle
     Origin: https://github.com/PyCQA/pydocstyle
   language: python
-  types:
-    - python
   additional_dependencies:
     - pydocstyle
+  types:
+    - python
   entry: pydocstyle
 
 - id: python-bandit
@@ -1021,10 +1003,10 @@
     Run bandit
     Origin: https://github.com/PyCQA/bandit
   language: python
-  types:
-    - python
   additional_dependencies:
     - bandit
+  types:
+    - python
   entry: bandit --skip=B404,B602,B603,B605,B606
 
 - id: python-setup-cfg-fmt
@@ -1033,9 +1015,9 @@
     Apply a consistent format to `setup.cfg` files
     Origin: https://github.com/asottile/setup-cfg-fmt
   language: python
-  files: '(^|/)setup\.cfg$'
   additional_dependencies:
     - setup-cfg-fmt
+  files: '(^|/)setup\.cfg$'
   entry: setup-cfg-fmt
 
 #########
@@ -1050,10 +1032,10 @@
     Check .rst files with the same linter used by pypi.org
     Origin: https://github.com/Lucas-C/pre-commit-hooks-markup
   language: python
-  types:
-    - rst
   additional_dependencies:
     - readme_renderer
+  types:
+    - rst
   entry: rst-linter
 
 ##########
@@ -1077,9 +1059,9 @@
     Check for vulnerable gem versions and insecure sources
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
   language: ruby
-  files: Gemfile.lock
   additional_dependencies:
     - bundler-audit
+  files: Gemfile.lock
   entry: bundle-audit check
   args:
     - --update
@@ -1090,10 +1072,10 @@
     Use fasterer to suggest speed improvements in Ruby
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
   language: ruby
-  types:
-    - ruby
   additional_dependencies:
     - fasterer
+  types:
+    - ruby
   entry: fasterer
 
 - id: ruby-reek
@@ -1102,10 +1084,10 @@
     Use reek to find ruby code smells
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
   language: ruby
-  types:
-    - ruby
   additional_dependencies:
     - reek
+  types:
+    - ruby
   entry: reek
 
 - id: ruby-rubocop
@@ -1114,11 +1096,11 @@
     Enforce Ruby style guide with rubocop and rubocop-rspec
     Origin: https://github.com/jumanjihouse/pre-commit-hooks
   language: ruby
-  types:
-    - ruby
   additional_dependencies:
     - rubocop
     - rubocop-rspec
+  types:
+    - ruby
   entry: rubocop
 
 ##########
@@ -1215,10 +1197,10 @@
     This hook runs bashate for linting shell scripts.
     Origin: https://github.com/openstack/bashate
   language: python
-  types:
-    - shell
   additional_dependencies:
     - bashate
+  types:
+    - shell
   entry: bashate
 
 - id: shell-beautysh
@@ -1227,10 +1209,10 @@
     This hook runs beautysh for beautifying shell scripts.
     Origin: https://github.com/lovesegfault/beautysh
   language: python
-  types:
-    - shell
   additional_dependencies:
     - beautysh
+  types:
+    - shell
   entry: beautysh
   args:
     - --indent-size 2
@@ -1247,9 +1229,9 @@
     This hook checks toml files for parseable syntax.
     Origin: https://github.com/pre-commit/pre-commit-hooks
   language: python
-  types:
-    - toml
   additional_dependencies:
+    - toml
+  types:
     - toml
   entry: toml-check-syntax
 
@@ -1281,10 +1263,10 @@
     This hook checks yaml files for parseable syntax.
     Origin: https://github.com/pre-commit/pre-commit-hooks
   language: python
-  types:
-    - yaml
   additional_dependencies:
     - ruamel.yaml
+  types:
+    - yaml
   entry: yaml-check-syntax --unsafe
 
 - id: yaml-yamllint
@@ -1293,8 +1275,8 @@
     This hook runs yamllint.
     Origin: https://github.com/adrienverge/yamllint
   language: python
-  types:
-    - yaml
   additional_dependencies:
     - yamllint
+  types:
+    - yaml
   entry: yamllint

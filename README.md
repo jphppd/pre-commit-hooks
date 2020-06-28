@@ -52,9 +52,7 @@ repos:
       - id: c-cpp-cmake-lint
       - id: c-cpp-clang-format-c-config
       - id: c-cpp-clang-format-c
-      - id: c-cpp-clang-format-cpp-config
       - id: c-cpp-clang-format-cpp
-      - id: c-cpp-clang-format-header-config
       - id: c-cpp-clang-format-header
       - id: dockerfile-lint
       - id: dockerfile-lint
