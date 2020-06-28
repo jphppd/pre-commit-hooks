@@ -1201,7 +1201,7 @@
   language: system
   types:
     - shell
-  entry: hooks/shell/shell-shellcheck
+  entry: shellcheck
   args:
     - --exclude=SC1091
 
@@ -1250,8 +1250,6 @@
   types:
     - shell
   entry: beautysh
-  args:
-    - --indent-size 2
 
 ##########
 ##########
