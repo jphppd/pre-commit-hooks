@@ -189,6 +189,7 @@ def main():
         print(f'{CONFIG_PATH} was created with a default configuration.')
         print('Please add it to your commit.')
         return 1
+    return 0
 
 
 if __name__ == '__main__':

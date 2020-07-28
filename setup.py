@@ -21,6 +21,7 @@ SCRIPTS = [
     'generic-tabs-forbid',
     'generic-tabs-remove',
     'c-create-clang-format-cfg',
+    'cmake-create-cmake-format-cfg',
     'html-validate',
     'html-detect-missing-css-classes',
     'html-attributes-blacklist',

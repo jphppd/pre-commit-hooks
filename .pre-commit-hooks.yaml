@@ -319,13 +319,23 @@
 ###########
 ###########
 
+- id: c-cpp-cmake-format-config
+  name: '[CMake] Demand .cmake_format.yaml'
+  description: >
+    Demand the presence of .cmake_format.yaml configuration file
+  language: python
+  always_run: true
+  entry: cmake-create-cmake-format-cfg
+  pass_filenames: false
+
 - id: c-cpp-cmake-format
   name: '[CMake] Format cmake files'
   description: >
-      cmake-format can format your listfiles nicely
+    cmake-format can format your listfiles nicely
   language: python
   additional_dependencies:
     - cmake-format
+    - PyYAML
   types:
     - cmake
   entry: cmake-format
@@ -335,11 +345,12 @@
 - id: c-cpp-cmake-lint
   name: '[Cmake] Lint cmake files'
   description: >
-      cmake-lint will check your listfiles for style violations,
-      common mistakes, and anti-patterns.
+    cmake-lint will check your listfiles for style violations,
+    common mistakes, and anti-patterns.
   language: python
   additional_dependencies:
     - cmake-format
+    - PyYAML
   types:
     - cmake
   entry: cmake-lint

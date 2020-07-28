@@ -48,6 +48,7 @@ repos:
       - id: generic-en-dashes-forbid
       - id: generic-en-dashes-remove
       - id: ansible-lint
+      - id: c-cpp-cmake-format-config
       - id: c-cpp-cmake-format
       - id: c-cpp-cmake-lint
       - id: c-cpp-clang-format-c-config
