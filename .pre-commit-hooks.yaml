@@ -590,6 +590,65 @@
   types:
     - javascript
   entry: prettier
+  args:
+    - --write
+    - --list-different
+
+################
+################
+## Typescript ##
+################
+################
+
+- id: ts-eslint
+  name: '[TS] Run eslint'
+  description: >
+    Run eslint
+  language: node
+  additional_dependencies:
+    - eslint
+  types:
+    - ts
+  entry: eslint
+
+- id: ts-prettier
+  name: '[TS] Run prettier'
+  description: >
+    Run prettier
+  language: node
+  additional_dependencies:
+    - prettier
+  types:
+    - ts
+  entry: prettier
+  args:
+    - --write
+    - --list-different
+
+- id: tsx-eslint
+  name: '[TSX] Run eslint'
+  description: >
+    Run eslint
+  language: node
+  additional_dependencies:
+    - eslint
+  types:
+    - tsx
+  entry: eslint
+
+- id: tsx-prettier
+  name: '[TSX] Run prettier'
+  description: >
+    Run prettier
+  language: node
+  additional_dependencies:
+    - prettier
+  types:
+    - tsx
+  entry: prettier
+  args:
+    - --write
+    - --list-different
 
 ###########
 ###########

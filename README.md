@@ -68,6 +68,10 @@ repos:
       - id: html-attributes-blacklist
       - id: js-eslint
       - id: js-prettier
+      - id: ts-eslint
+      - id: ts-prettier
+      - id: tsx-eslint
+      - id: tsx-prettier
       - id: jinja-lint
       - id: json-check-syntax
       - id: json-pretty-format
