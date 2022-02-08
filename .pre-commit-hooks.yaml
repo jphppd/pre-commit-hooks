@@ -306,6 +306,7 @@
     Origin: https://github.com/ansible/ansible-lint
   language: python
   additional_dependencies:
+    - ansible
     - ansible-lint
   always_run: true
   entry: ansible-lint --force-color .
