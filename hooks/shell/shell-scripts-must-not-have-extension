@@ -12,7 +12,7 @@ declare -i RC=0
 
 has_extension() {
     declare -r filename="$1"
-    [[ "${filename}" =~ \..+$ ]]
+    [[ "${filename##*/}" =~ \..+$ ]]
 }
 
 for filename in "${@}"; do
